@@ -17,6 +17,8 @@ struct ContentView: View {
     private var items: FetchedResults<Item>
 
     var body: some View {
+        AsyncView()
+        
         NavigationView {
             List {
                 ForEach(items) { item in
@@ -44,6 +46,8 @@ struct ContentView: View {
             }
             Text("Select an item")
         }
+        
+        
     }
 
     private func addItem() {
@@ -87,4 +91,28 @@ private let itemFormatter: DateFormatter = {
 
 #Preview {
     ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+}
+
+struct AsyncView: View {
+    @State var generator = AsyncStreamGenerator()
+    
+    var body: some View {
+        VStack {
+            Button("Start") {
+                Task {
+                    // start the stream
+                    let events = await generator.downloadEvents()
+                    print("Events")
+                    
+                    for await event in events {
+                        print(event)
+                    }
+                }
+            }
+            
+            Button("Stop") {
+                // end the stream
+            }
+        }
+    }
 }
