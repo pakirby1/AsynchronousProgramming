@@ -36,13 +36,13 @@ class AsyncStreamGenerator {
         }
     }
 
-    func download() -> AsyncStream<AsyncStreamStatus<Int>> {
+    func generate() -> AsyncStream<AsyncStreamStatus<Int>> {
         return AsyncStream { continuation in
                 self.generateData(completion: { result in
                     switch result {
                     case .success(let data):    // Result<DownloadEvent, Error>
                         continuation.yield(.event(data))
-                    case .failure(let _):
+                    case .failure( _):
                         continuation.yield(.finished)
                         continuation.finish()
                     }
@@ -57,8 +57,14 @@ class AsyncStreamGenerator {
         while (id < (items + 1)) {
             let progress: Int = id * step // 0->20->40->60->80->100
         
-            let r: Result<DownloadEvent, Error> = .success(DownloadEvent(progress: progress, event: TestEvent(value: id)))
-            completion(r)
+            if (id != 7) {
+                let r: Result<DownloadEvent, Error> = .success(DownloadEvent(progress: progress, event: TestEvent(value: id)))
+                completion(r)
+            } else {
+                let e: Result<DownloadEvent, Error> = .failure(AsyncStreamGeneratorError())
+                completion(e)
+            }
+            
             id += 1
         }
         
@@ -75,13 +81,12 @@ class AsyncStreamConsumer {
     
     func consume() {
         Task.detached {
-            for try await event in self.generator.download() {
+            for try await event in self.generator.generate() {
                 print(event)
             }
         }
     }
 }
-
 
 struct TestEvent<T> {
     let value: T
