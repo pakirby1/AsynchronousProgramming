@@ -38,6 +38,10 @@ struct ContentView: View {
                     }
                 }
             }
+            .onAppear() {
+//                BasicAsynchronous().mainThreadFunc()
+                AsyncStreamConsumer().consume()
+            }
             Text("Select an item")
         }
     }
