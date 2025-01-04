@@ -17,8 +17,8 @@ struct ContentView: View {
     private var items: FetchedResults<Item>
 
     var body: some View {
-        AsyncView()
-        
+//        AsyncView()
+        CombineView()
         NavigationView {
             List {
                 ForEach(items) { item in
@@ -95,6 +95,8 @@ private let itemFormatter: DateFormatter = {
 
 struct AsyncView: View {
     @State var generator = AsyncStreamGenerator()
+    @State private var currentValue = 0
+    @State var viewModel = AsyncViewModel(downloadAPI: DownloadAPI())
     
     var body: some View {
         VStack {
@@ -112,6 +114,16 @@ struct AsyncView: View {
             
             Button("Stop") {
                 // end the stream
+            }
+            
+            Button("AsyncViewModel") {
+                Task {
+                    let events = await viewModel.performDownload()
+                    
+                    for await event in events {
+                        print(event)
+                    }
+                }
             }
         }
     }

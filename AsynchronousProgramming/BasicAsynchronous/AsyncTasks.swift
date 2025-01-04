@@ -21,6 +21,7 @@ class AsyncTasks {
                 Log("AsyncTasks.initTask()", "before try await")    // 7
                 Log("AsyncTasks.initTask()", "try await Task.sleep(nanoseconds: 5_000_000)")
                 try await Task.sleep(nanoseconds: 5_000_000)
+                try? await Task.sleep(for: .milliseconds(10))
                 Log("AsyncTasks.initTask()", "after try await")     // 8
                 return id
             } catch {

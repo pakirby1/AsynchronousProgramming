@@ -85,6 +85,7 @@ class AsyncStreamGenerator {
     }
     
     func stopEvents() {
+        continuation?.yield(.finished)
         continuation?.finish()
     }
 }
@@ -190,3 +191,37 @@ struct DownloadEvent {
  }
 
  */
+
+class AsyncViewModel {
+    let downloadAPI: DownloadAPI
+    
+    init(downloadAPI: DownloadAPI) {
+        self.downloadAPI = downloadAPI
+    }
+    
+    func performDownload() async -> AsyncStream<Double> {
+        AsyncStream { continuation in
+            Task {
+                await downloadAPI.startDownload { percentage in
+                    continuation.yield(percentage)
+                }
+                continuation.finish()
+            }
+        }
+    }
+}
+
+class DownloadAPI {
+    func startDownload(completion: @escaping (Double) -> Void) async {
+        for i in 1...5 {
+            do {
+//                try await Task.sleep(nanoseconds: 10_000_000)
+                try? await Task.sleep(for: .milliseconds(10))
+                completion(Double(i * 20))
+            } catch {
+                completion(0)
+            }
+        }
+    }
+}
+
