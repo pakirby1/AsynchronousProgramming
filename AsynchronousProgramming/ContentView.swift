@@ -8,17 +8,14 @@
 import SwiftUI
 import CoreData
 
-struct ContentView: View {
+struct TimestampListView : View {
     @Environment(\.managedObjectContext) private var viewContext
-
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
         animation: .default)
     private var items: FetchedResults<Item>
 
     var body: some View {
-//        AsyncView()
-        CombineView()
         NavigationView {
             List {
                 ForEach(items) { item in
@@ -42,14 +39,12 @@ struct ContentView: View {
             }
             .onAppear() {
 //                BasicAsynchronous().mainThreadFunc()
-                AsyncStreamConsumer().consume()
+//                AsyncStreamConsumer().consume()
             }
             Text("Select an item")
         }
-        
-        
     }
-
+    
     private func addItem() {
         withAnimation {
             let newItem = Item(context: viewContext)
@@ -79,6 +74,18 @@ struct ContentView: View {
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
         }
+    }
+}
+
+struct ContentView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    
+    var body: some View {
+//        TimestampListView()
+//        AsyncView()
+//        CombineView()
+//        InfiniteStreamView()
+        StopwatchView()
     }
 }
 

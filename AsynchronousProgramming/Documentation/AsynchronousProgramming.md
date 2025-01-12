@@ -446,3 +446,352 @@ sequenceDiagram
     AsyncStreamGenerator->>AsyncView: AsyncStream<AsyncStreamStatus<Int>>
     AsyncView->>AsyncView: for await event in events
 ```
+# Building an infinite stream
+Given the following code:
+```swift
+class InfiniteStream {
+    func subscribe() async -> AsyncStream<Int> {
+        AsyncStream { continuation in
+            Task {
+                for _ in 1...10 {
+                    continuation.yield(Int.random(in: 0..<Int.max))
+                }
+            }
+        }
+    }
+}
+
+struct InfiniteStreamView: View {
+    @State var viewModel = InfiniteStream()
+    
+    var body: some View {
+        Button("Start Infinite Stream") {
+            Task {
+                let events = await viewModel.subscribe()
+                for await event in events {
+                    print(event)
+                }
+            }
+        }
+    }
+}
+```
+The 10 random numbers are all generated and stored within the stream before being
+processed later by the `for await event...` line.  I would like to emit events and 
+display them in the view as each event is generated.
+
+Contrast that with this code:
+```swift
+class InfiniteStream {
+    func subscribe() async -> AsyncStream<Int> {
+        AsyncStream {
+            try? await Task.sleep(nanoseconds: 1_000_000_000)
+            return Int.random(in: 1...10)
+        }
+    }
+}
+
+struct InfiniteStreamView: View {
+    @State var viewModel = InfiniteStream()
+    
+    var body: some View {
+        Button("Start Infinite Stream") {
+            Task {
+                let events = await viewModel.subscribe()
+                for await event in events {
+                    print(event)
+                }
+            }
+        }
+    }
+}
+```
+The main difference is within the `InfiniteStream.subscribe()` function,
+
+```swift
+    AsyncStream { continuation in
+        Task {
+            for _ in 1...10 {
+                continuation.yield(Int.random(in: 0..<Int.max))
+            }
+        }
+    }
+```
+vs. new:
+```swift
+    AsyncStream {
+        try? await Task.sleep(nanoseconds: 1_000_000_000)
+        return Int.random(in: 1...10)
+    }
+```
+The difference is that in the original version, the elements are loaded into the stream by
+calling `continuation.yield()` 10 times.  The new version doesn't use continuation, it sleeps and
+returns a random integer from 1 to 10.  What if we used the version below...
+
+```swift
+    AsyncStream { continuation in
+        try? await Task.sleep(nanoseconds: 1_000_000_000)
+        continuation.yield(Int.random(in: 0..<Int.max))
+        }
+    }
+```
+
+# SwiftUI Integration
+When using SwiftUI views and `AsyncStream` objects, we can use the `.task` view modifier to initiate event generation from our generator:
+
+```mermaid
+sequenceDiagram
+    participant SwiftUIView
+    participant ViewModel
+    participant EventGenerator
+    participant AsyncStream
+    
+    SwiftUIView->>SwiftUIView: .task { await generateEvents() }
+    alt task
+    SwiftUIView->>ViewModel: generateEvents() async
+    ViewModel->>EventGenerator: for await event in eventGenerator.stream
+    alt Task
+    EventGenerator->>AsyncStream: continuation.yield(Int)
+    end
+    AsyncStream->>ViewModel: event
+    ViewModel->>ViewModel: events.append(event)
+    ViewModel->>SwiftUIView: 
+    SwiftUIView->>SwiftUIView: for await event in viewModel.events
+    end
+```
+
+The sequence diagram above corresponds to the following class diagram
+
+```mermaid
+classDiagram
+    class SwiftUIView
+    SwiftUIView : -generateEvents() async
+    SwiftUIView : +ViewModel viewModel
+    ViewModel : +generateEvents() async
+    ViewModel : +@Published events
+    ViewModel : -eventGenerator EventGenerator
+    EventGenerator : +lazy var stream AsyncStream
+    EventGenerator : -continuation AsyncStream.Iterator
+```
+
+You could also merge the `ViewModel` and `EventGenerator` into a single object that the `SwiftUI` view would use:
+```mermaid
+sequenceDiagram
+    participant SwiftUIView
+    participant ViewModel
+    participant AsyncStream
+    
+    SwiftUIView->>SwiftUIView: .task { await generateEvents() }
+    alt task
+    SwiftUIView->>ViewModel: generateEvents() async
+    ViewModel->>EventGenerator: for await event in eventGenerator.stream
+    alt Task
+    EventGenerator->>AsyncStream: continuation.yield(Int)
+    end
+    AsyncStream->>ViewModel: event
+    ViewModel->>ViewModel: events.append(event)
+    ViewModel->>SwiftUIView: 
+    SwiftUIView->>SwiftUIView: for await event in viewModel.events
+    end
+```
+
+```mermaid
+classDiagram
+    class SwiftUIView
+    class ViewModel
+    
+    SwiftUIView : -generateEvents() async
+    SwiftUIView : +ViewModel viewModel
+    ViewModel : +generateEvents() async
+    ViewModel : +@Published events
+    ViewModel : -eventGenerator EventGenerator
+    EventGenerator : +lazy var stream AsyncStream
+    EventGenerator : -continuation AsyncStream.Iterator
+```
+
+# Stopwatch App
+This app provides the ability to provide stop watch functionality,
+specifically:
+1. Start the stop watch
+2. Display the time in the UI
+3. Stop the stop watch
+
+## Stopwatch UI
+
+## Design
+### Participants
+The following objects participate with each other in the app:
+```mermaid
+classDiagram
+    class StopwatchView
+    class StopwatchViewModel
+    class EventGenerator
+    
+    StopwatchView : @StateObject viewModel StopwatchViewModel
+    
+    StopwatchViewModel: @Published currentTime Date
+    StopwatchViewModel: generator = EventGenerator()
+    StopwatchViewModel: +start() async
+    StopwatchViewModel: +stop() async
+    
+    EventGenerator: +lazy var eventStream AsyncStream<Int>
+    EventGenerator: -var isRunning Bool = false
+    EventGenerator: +start() async
+    EventGenerator: +stop() async
+```
+
+### Events
+There are only a few events that are returned from the `EventGenerator`:
+- the current time
+- a cancel event
+
+### Event Flow
+The `StopwatchView`, in response to the start button tap event will make an async call
+to the `StopwatchViewModel.start()` asynchronous function.
+```swift
+struct StopwatchView : View {
+    @StateObject var viewModel = StopwatchViewModel()
+    
+    var body: some View {
+        VStack {
+            Button("Start Stopwatch") {
+                Task {
+                    await viewModel.start()
+                }
+            }
+            
+            Button("Stop Stopwatch") {
+                Task {
+                    await viewModel.stop()
+                }
+            }
+            
+            Divider()
+            Label("Current time: \(viewModel.currentTime)", systemImage: "timer")
+        }
+    }
+}
+```
+A few notes:
+> We use an `@StateObject` property wrapper to observe changes to the `StopwatchViewModel`
+
+
+> We wrap the calls to the view model within a `Task` block since we need to call the view model functions
+from an async context.
+
+The view model then `await`s on the `generator.eventStream`, and when an event is published 
+on the `eventStream`, set the `currentTime` to the event.
+```swift
+@MainActor
+class StopwatchViewModel: ObservableObject {
+    @Published var currentTime: Date = Date()
+    private let generator = EventGenerator()
+    
+    func start() async {
+        for await event in generator.eventStream {
+            currentTime = event
+        }
+    }
+    
+    func stop() async {
+        
+    }
+}
+```
+> We annotate the class with the `@MainActor` attribute to ensure that all methods on `StopwatchViewModel` are executed on the main thread.
+
+The event generator just emits the current date into the stream
+```swift
+class EventGenerator {
+    lazy var eventStream: AsyncStream<Date> = {
+        AsyncStream { continuation in
+            continuation.yield(Date.now)
+        }
+    }()
+}
+```
+> I'm using a `lazy` variable to represent the stream.  The `eventStream` variable will be set to the return sent from the closure.  The closure returns an `AsyncStream<Data>` object.
+
+
+> Elements are sent to the stream by calling `continuation.yield(DateTime.Now)`
+
+When the app is run, we can start the stopwatch and see the new date, but stopping the stopwatch doesn't do anything, and neither does tapping the start button.  Basically we have a stopwatch that can only give us the latest date, and only once.  We'd like to get updated times after we tap the start button.  And once we tap the stop button, no subsequent events are received from the stopwatch.
+
+Let's add a property to `EventGenerator` that tracks the running state of the generator and add `start()` and `stop()` functions to set the `isRunning` property.
+
+```swift
+class EventGenerator {
+    private var isRunning: Bool = false
+    
+    lazy var eventStream: AsyncStream<Date> = {
+        AsyncStream { continuation in
+            while(isRunning) {
+                continuation.yield(Date.now)
+            }
+        }
+    }()
+    
+    func start() async {
+        isRunning = true
+    }
+    
+    func stop() async {
+        isRunning = false
+    }
+}
+```
+We need to update the view model to call the `start()` and `stop()` functions.
+```swift
+@MainActor
+class StopwatchViewModel: ObservableObject {
+    @Published var currentTime: Date = Date()
+    private let generator = EventGenerator()
+    
+    func start() async {
+        await generator.start()
+        
+        for await event in generator.eventStream {
+            currentTime = event
+        }
+    }
+    
+    func stop() async {
+        await generator.stop()
+    }
+}
+```
+Theoretically, this should do the trick but the events are just getting generated too fast for the UI to keep up, so let's introduce a delay between events in the `EventGenerator` object:
+
+```swift
+class EventGenerator {
+    private var isRunning: Bool = false
+    
+    lazy var eventStream: AsyncStream<Date> = {
+        AsyncStream { continuation in
+            Task {
+                while(isRunning) {
+                    do {
+                        try await Task.sleep(nanoseconds: 5_000_000)
+                    }
+                    catch{
+                        print(error)
+                    }
+                    
+                    continuation.yield(Date.now)
+                }
+            }
+        }
+    }()
+    
+    func start() async {
+        isRunning = true
+    }
+    
+    func stop() async {
+        isRunning = false
+    }
+}
+```
+I've introduced a delay by calling `Task.sleep()` sync the call throws it needs be wrapped in a `do-catch` block.  This block also needs to be wrapped in a `Task` block since we are calling `await Task.sleep(...)`, the `Task` provides an async context within the synchronous property `eventStream`.
+ 
+
