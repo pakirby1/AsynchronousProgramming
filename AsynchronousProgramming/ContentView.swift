@@ -85,7 +85,8 @@ struct ContentView: View {
 //        AsyncView()
 //        CombineView()
 //        InfiniteStreamView()
-        StopwatchView()
+//        StopwatchView()
+        EventGeneratorView()
     }
 }
 

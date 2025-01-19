@@ -795,3 +795,5 @@ class EventGenerator {
 I've introduced a delay by calling `Task.sleep()` sync the call throws it needs be wrapped in a `do-catch` block.  This block also needs to be wrapped in a `Task` block since we are calling `await Task.sleep(...)`, the `Task` provides an async context within the synchronous property `eventStream`.
  
 
+### Another Approach
+![Linked View Model Diagram](https://pakirby1.github.io/images/LinkedViewModel.001.png)
