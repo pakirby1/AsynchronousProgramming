@@ -795,5 +795,87 @@ class EventGenerator {
 I've introduced a delay by calling `Task.sleep()` sync the call throws it needs be wrapped in a `do-catch` block.  This block also needs to be wrapped in a `Task` block since we are calling `await Task.sleep(...)`, the `Task` provides an async context within the synchronous property `eventStream`.
  
 
-### Another Approach
-![Linked View Model Diagram](https://pakirby1.github.io/images/LinkedViewModel.001.png)
+### More
+We can make the view/viewmodel a little better by moving the `Task` block into the view model:
+
+```swift
+struct EventGeneratorView: View {
+    @StateObject var viewModel = EventGeneratorViewModel()
+    
+    var body: some View {
+        VStack {
+            Button("Start", systemImage: "timer") {
+                viewModel.getUser()
+            }
+            
+            Label(viewModel.currentUser, systemImage: "person.fill")
+        }
+    }
+}
+
+@MainActor
+class EventGeneratorViewModel : ObservableObject {
+    @Published var currentUser: String = ""
+    let generator: Generator<String> = Generator<String>(workItem: WorkItem { return "User #" })
+
+    func getUser() {
+        Task {
+            await getUser()
+        }
+    }
+    
+    private func getUser() async {
+        currentUser = "Phil"
+        var i:Int = 1
+        
+        for await user in await generator.getStream() {
+            currentUser = user + String(i)
+            i += 1
+        }
+        
+        currentUser = "Terminated"
+    }
+}
+```
+![EventFlow](assets/EventFlow.png)
+
+## Services
+### User Service
+Provides the following support:
+1. Get all or a subset of users
+2. Get details for a specific user
+
+```mermaid
+classDiagram
+    class WorkItem {
+        +execute : `() -> Void`
+    }
+    
+    class UserService {
+        +getUsers() async -> [User]
+
+    }
+    
+    class EventGenerator {
+        +eventStream : AsyncStream~User~
+        -workItem: WorkItem~User~
+        +init(WorkItem)
+    }
+    
+    class User {
+        +id UUID
+        +getDetails(UUID) async -> UserDetails
+    }
+    
+    class UserDetails {
+        +name String
+        +dob Date
+    }
+    
+    EventGenerator --> WorkItem
+    WorkItem --> UserService
+    UserService --> User
+    User --> UserDetails
+```
+
+

@@ -158,8 +158,8 @@
             filePath = "AsynchronousProgramming/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -254,8 +254,8 @@
             filePath = "AsynchronousProgramming/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -270,8 +270,8 @@
             filePath = "AsynchronousProgramming/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -286,13 +286,13 @@
             filePath = "AsynchronousProgramming/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
                <Location
-                  uuid = "0171AEE0-0C64-47F9-9A1B-4E024ECF4944 - 88d685eeeca0888f"
+                  uuid = "0171AEE0-0C64-47F9-9A1B-4E024ECF4944 - 88d685eeeca088ae"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -302,11 +302,11 @@
                   urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/ContentView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "129"
-                  endingLineNumber = "129">
+                  startingLineNumber = "130"
+                  endingLineNumber = "130">
                </Location>
                <Location
-                  uuid = "0171AEE0-0C64-47F9-9A1B-4E024ECF4944 - c9c0be48a5e0befb"
+                  uuid = "0171AEE0-0C64-47F9-9A1B-4E024ECF4944 - c9c0be48a5e0beda"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -316,11 +316,11 @@
                   urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/ContentView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "129"
-                  endingLineNumber = "129">
+                  startingLineNumber = "130"
+                  endingLineNumber = "130">
                </Location>
                <Location
-                  uuid = "0171AEE0-0C64-47F9-9A1B-4E024ECF4944 - 1e49a6ac83fd749d"
+                  uuid = "0171AEE0-0C64-47F9-9A1B-4E024ECF4944 - 1e49a6ac83fd74bc"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -330,8 +330,8 @@
                   urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/ContentView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "129"
-                  endingLineNumber = "129">
+                  startingLineNumber = "130"
+                  endingLineNumber = "130">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -346,8 +346,8 @@
             filePath = "AsynchronousProgramming/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -1158,6 +1158,22 @@
             endingLineNumber = "77"
             landmarkName = "stop()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E402A9F8-82B6-4BA7-9C14-2D89619215CE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AsynchronousProgramming/AsyncStream/EventGenerator.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -1,0 +1,19 @@
+Thread ID: 0x16ff13000 exponent: 0 45, 75, 8765, 
+
+Thread ID: 0x16ff13000 exponent: 1 45, 8765, 75, 
+
+Thread ID: 0x16ff13000 exponent: 2 45, 75, 8765,
+
+Thread ID: 0x16ff13000 exponent: 3 45, 75, 8765, 
+
+Thread ID: 0x16fe87000 exponent: 0 170, 90, 34550, 802, 2, 24, 66, 
+
+Thread ID: 0x16fe87000 exponent: 1 802, 2, 24, 34550, 66, 170, 90, 
+
+Thread ID: 0x16fe87000 exponent: 2 2, 24, 66, 90, 170, 34550, 802, 
+
+Thread ID: 0x16fe87000 exponent: 3 2, 24, 66, 90, 170, 802, 34550, 
+
+Thread ID: 0x16fe87000 exponent: 4 2, 24, 66, 90, 170, 802, 34550, 
+
+Thread ID: 0x1ebc73240 result:  2, 24, 66, 90, 170, 802, 34550, 45, 75, 8765,
