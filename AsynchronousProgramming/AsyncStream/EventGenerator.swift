@@ -25,8 +25,18 @@ struct EventGeneratorView: View {
 @MainActor
 class EventGeneratorViewModel : ObservableObject {
     @Published var currentUser: String = ""
-    let generator: Generator<String> = Generator<String>(workItem: WorkItem { return "User #" })
-
+    let generator: Generator<User>?
+    let service: UserService?
+    
+    init() {
+        self.service = UserService()
+        self.generator = Generator<User>()
+        self.generator?.workItem = WorkItem<User> { [weak self] in
+            guard let self else { return [] }
+            return self.service?.getUsers() ?? []
+        }
+    }
+    
     func getUser() {
         Task {
             await getUser()
@@ -34,11 +44,13 @@ class EventGeneratorViewModel : ObservableObject {
     }
     
     private func getUser() async {
-        currentUser = "Phil"
+        currentUser = "No User"
         var i:Int = 1
         
-        for await user in generator.getStream() {
-            currentUser = user + String(i)
+        guard let gen = generator else { return }
+        
+        for await user in gen.getStream() {
+            currentUser = "User #\(String(i)): \(user.details.firstName)"
             i += 1
         }
         
@@ -63,36 +75,10 @@ enum GeneratorState : CustomStringConvertible {
     }
 }
 
-class StringGenerator {
-    let workItem: WorkItem<String>
-    var state: GeneratorState = .initial("Initial")
-    
-    init(workItem: WorkItem<String>) {
-        self.workItem = workItem
-    }
-    
-    func getStream() async -> AsyncStream<String> {
-        AsyncStream<String> { continuation in
-            Task {
-                for i in 1..<6 {
-                    let s = workItem.execute()
-                    let event = String(s) + String(i)
-                    self.state = .processing(event)
-                    try await Task.sleep(nanoseconds: 1 * 2_000_000_000)
-                    continuation.yield(event)
-                }
-                
-                try await Task.sleep(nanoseconds: 1 * 5_000_000_000)
-                continuation.yield("End")
-                continuation.finish()
-                self.state = .finished
-            }
-        }
-    }
-}
-
 class Generator<T> {
-    let workItem: WorkItem<T>
+    var workItem: WorkItem<T>? = nil
+    
+    init() {}
     
     init(workItem: WorkItem<T>) {
         self.workItem = workItem
@@ -101,10 +87,23 @@ class Generator<T> {
     func getStream() -> AsyncStream<T> {
         AsyncStream<T> { continuation in
             Task {
-                for i in 1..<6 {
-                    let s = workItem.execute()
-                    try await Task.sleep(nanoseconds: UInt64(i * 5_000_000_000))
-                    continuation.yield(s)
+                guard let wi = workItem else {
+                    continuation.finish()
+                    return
+                }
+                
+                guard let exec = wi.execute else {
+                    continuation.finish()
+                    return
+                }
+                
+                let users:[T] = exec() // returns [User]
+                var i = 1
+                
+                for user in users {
+                    try await Task.sleep(nanoseconds: UInt64(i * 2_000_000_000))
+                    continuation.yield(user)   // User
+                    i += 1
                 }
                 
                 try await Task.sleep(nanoseconds: 1 * 5_000_000_000)
@@ -114,6 +113,29 @@ class Generator<T> {
     }
 }
 
-struct WorkItem<T> {
-    let execute: () -> T
+class WorkItem<T> {
+    var execute: (() -> [T])?
+    
+    init(execute: (() -> [T])? = nil) {
+        self.execute = execute
+    }
 }
+
+class UserWorkItem {
+    let execute: (() -> [User])? = nil
+    
+    init() {
+        
+    }
+    
+    func run() -> [User] {
+        guard let exec = execute else { return [] }
+        
+        let result: [User] = exec()
+        
+        return result
+    }
+}
+
+enum MyError : Error {}
+

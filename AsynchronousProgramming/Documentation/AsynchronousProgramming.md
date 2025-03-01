@@ -816,8 +816,16 @@ struct EventGeneratorView: View {
 @MainActor
 class EventGeneratorViewModel : ObservableObject {
     @Published var currentUser: String = ""
-    let generator: Generator<String> = Generator<String>(workItem: WorkItem { return "User #" })
-
+    let generator: Generator<User>?
+    let service: UserService?
+    
+    init() {
+        self.service = UserService()
+        self.generator = Generator<User>()
+        let workItem = WorkItem { return self.service?.getUsers() }
+        self.generator?.workItem = workItem
+    }
+    
     func getUser() {
         Task {
             await getUser()
@@ -825,15 +833,50 @@ class EventGeneratorViewModel : ObservableObject {
     }
     
     private func getUser() async {
-        currentUser = "Phil"
+        currentUser = "No User"
         var i:Int = 1
         
-        for await user in await generator.getStream() {
-            currentUser = user + String(i)
+        guard let gen = generator else { return }
+        
+        for await user in gen.getStream() {
+            currentUser = "User #\(String(i)): \(user.details.firstName)"
             i += 1
         }
         
         currentUser = "Terminated"
+    }
+}
+
+class Generator<T> {
+    var workItem: WorkItem<T>? = nil
+    
+    init() {}
+    
+    init(workItem: WorkItem<T>) {
+        self.workItem = workItem
+    }
+    
+    func getStream() -> AsyncStream<T> {
+        AsyncStream<T> { continuation in
+            Task {
+                guard let wi = workItem else {
+                    continuation.finish()
+                    return
+                }
+                
+                let users:[T] = wi.execute() ?? [] // returns [User]
+                var i = 1
+                
+                for user in users {
+                    try await Task.sleep(nanoseconds: UInt64(i * 2_000_000_000))
+                    continuation.yield(user)   // User
+                    i += 1
+                }
+                
+                try await Task.sleep(nanoseconds: 1 * 5_000_000_000)
+                continuation.finish()
+            }
+        }
     }
 }
 ```
@@ -845,21 +888,41 @@ Provides the following support:
 1. Get all or a subset of users
 2. Get details for a specific user
 
+```swift
+class UserService {
+    func getUsers() -> [User] {
+        return [
+            buildUser(first: "Phil", last: "Kirby"),
+            buildUser(first: "Quintella", last: "Kirby"),
+            buildUser(first: "Kimberly", last: "Kirby")
+        ]
+    }
+    
+    private func buildUser(first: String, last: String) -> User {
+        return User(first: first, last: last, dob: Date.now)
+    }
+}
+```
+
+The function `getUsers()` returns an array of `User` objects.  This function is _not_ async.
+
 ```mermaid
 classDiagram
     class WorkItem {
-        +execute : `() -> Void`
+        var execute: (() -> [T])?
+    
+        init(execute: (() -> [T])? = nil)
     }
     
     class UserService {
-        +getUsers() async -> [User]
-
+        +getUsers() -> [User]
+        -buildUser(first:last:) -> User
     }
     
-    class EventGenerator {
-        +eventStream : AsyncStream~User~
-        -workItem: WorkItem~User~
-        +init(WorkItem)
+    class Generator~T~ {
+        +var workItem: WorkItem<T>? = nil
+        +init()
+        +init(WorkItem~T~)
     }
     
     class User {
@@ -872,10 +935,299 @@ classDiagram
         +dob Date
     }
     
-    EventGenerator --> WorkItem
+    Generator --> WorkItem
     WorkItem --> UserService
     UserService --> User
     User --> UserDetails
 ```
+```mermaid
+sequenceDiagram
+    box @MainActor
+    participant SwiftUIView
+    participant ViewModel
+    end
+    participant Generator~User~
+    participant WorkItem
+    participant UserService
+    
+    SwiftUIView->>ViewModel: init()
+    activate ViewModel
+    ViewModel->>UserService: init()
+    ViewModel->>Generator~User~: init()
+    ViewModel->>WorkItem: init(execute: (() -> [T])? = nil)
+    ViewModel->>Generator~User~: set workItem
+    SwiftUIView->>ViewModel: getUser()
+    alt Task
+    ViewModel->>ViewModel: getUser()
+    ViewModel->>Generator~User~: for await event in getStream() 
+    alt Task
+    Generator~User~->>WorkItem: execute()
+    WorkItem->>UserService: getUsers()
+    UserService->>WorkItem: [User]
+    WorkItem->>Generator~User~: [User]
+    Generator~User~->>ViewModel: AsyncStream<String>
+    ViewModel->>ViewModel: update @Published currentUser
+    end
+    end
+    ViewModel->>SwiftUIView: currentUser
+    deactivate ViewModel
+```
 
+The reference diagram:
+```mermaid
+flowchart LR
+   ViewModel== strong(generator) ==>Generator;
+   ViewModel== strong(service) ==>UserService;
+   Generator== strong(workItem.context) ==>ViewModel;
+```
+
+Using the debug memory graph we get the following:
+![DebugMemoryGraph](assets/images/DebugMemoryGraph_Retained.png)
+Here we can see that the `EventGeneratorViewModel` has a strong reference to `AsynchronousProgramming.Generator<AsynchronousProgramming.User>` via the `generator` property of the view model.  The `AsynchronousProgramming.Generator<AsynchronousProgramming.User>` has a strong reference to the `EventGeneratorviewModel` via the `workItem` field of the generator.  We have a reference cycle.  This line creates the cycle:
+
+```swift
+let workItem = WorkItem { return self.service?.getUsers() }
+```
+
+If we update this to be:
+```swift
+self.generator?.workItem = WorkItem<User> { [weak self] in
+    guard let self else { return [] }
+    return self.service?.getUsers() ?? []
+}
+```
+![DebugMemoryGraph](assets/images/DebugMemoryGraph.png)
+
+The `AsynchronousProgramming.Generator<AsynchronousProgramming.User>` now has a strong reference to `AsynchronousProgramming.WorkItem<AsynchronousProgramming.User>` and it no longer references `EventGeneratorViewModel`.
+
+The reference diagram:
+```mermaid
+flowchart LR
+   ViewModel== strong(generator) ==>Generator;
+   ViewModel== strong(service) ==>UserService;
+   Generator== strong(workItem) ==>WorkItem;
+   WorkItem-. weak(service) .-> ViewModel;
+```
+Using `[weak self]` resolves the retain cycle.
+
+```swift
+@MainActor
+class EventGeneratorViewModel : ObservableObject {
+    @Published var currentUser: String = ""
+    let generator: Generator<User>?
+    let service: UserService?
+    
+    init() {
+        self.service = UserService()
+        self.generator = Generator<User>()
+        self.generator?.workItem = WorkItem<User> { [weak self] in
+            guard let self else { return [] }
+            return self.service?.getUsers() ?? []
+        }
+    }
+    
+    func getUser() {
+        Task {
+            await getUser()
+        }
+    }
+    
+    private func getUser() async {
+        currentUser = "No User"
+        var i:Int = 1
+        
+        guard let gen = generator else { return }
+        
+        for await user in gen.getStream() {
+            currentUser = "User #\(String(i)): \(user.details.firstName)"
+            i += 1
+        }
+        
+        currentUser = "Terminated"
+    }
+}
+
+class Generator<T> {
+    var workItem: WorkItem<T>? = nil
+    
+    init() {}
+    
+    init(workItem: WorkItem<T>) {
+        self.workItem = workItem
+    }
+    
+    func getStream() -> AsyncStream<T> {
+        AsyncStream<T> { continuation in
+            Task {
+                guard let wi = workItem else {
+                    continuation.finish()
+                    return
+                }
+                
+                guard let exec = wi.execute else {
+                    continuation.finish()
+                    return
+                }
+                
+                let users:[T] = exec() // returns [User]
+                var i = 1
+                
+                for user in users {
+                    try await Task.sleep(nanoseconds: UInt64(i * 2_000_000_000))
+                    continuation.yield(user)   // User
+                    i += 1
+                }
+                
+                try await Task.sleep(nanoseconds: 1 * 5_000_000_000)
+                continuation.finish()
+            }
+        }
+    }
+}
+
+class WorkItem<T> {
+    var execute: (() -> [T])?
+    
+    init(execute: (() -> [T])? = nil) {
+        self.execute = execute
+    }
+}
+```
+
+## Task Groups
+Task groups allow you to run a batch of Tasks in parallel, add their results (if any) to the group, and allow an object to iterate over the results _once all requests have completed_.
+
+> Items cannot be read from a group until _all_ tasks have completed.  Results from all tasks are available once all tasks have completed and their results have been added to the group.
+
+```mermaid
+flowchart LR
+    TaskGroup== await ==>Task4
+    TaskGroup== await ==>Task15
+    TaskGroup== await ==>Task17
+    TaskGroup== await ==>Task2
+    TaskGroup== await ==>Task3
+    Task4==>group
+    Task15==>group
+    Task17==>group
+    Task2==>group
+    Task3==>group
+    subgraph once all tasks complete
+    group== for await str in group ==>SwiftUIView
+    end
+```
+
+The following describes a view displaying tasks run in parallel.  Each task doesn't return anything.
+
+```swift
+struct TaskGroupView: View {
+    @State var title: String = "Use a task group to start tasks in parallel"
+    @State var results: [String] = []
+    let ids: [Int] = [4, 15, 17, 2, 3]
+    
+    var body: some View {
+        Button(title) {
+            print(title)
+            Task {
+                await test()
+            }
+        }
+        
+        List(ids, id: \.self) { initial in
+            Text(String(initial))
+        }
+        
+        List(results, id: \.self) { result in
+            Text(result)
+        }
+    }
+    
+    func test() async {
+        return await withTaskGroup(of: Void.self) { group in
+            let ids: [Int] = [4, 15, 17, 2, 3]
+            
+            // adding tasks to the group
+            for id in ids {
+                group.addTask {
+                    return await self.runTask(id: id)
+                }
+            }
+        }
+    }
+    
+    func runTask(id: Int) async {
+        Task {
+            print("running \(id)")
+            
+            // Simulate a network call
+            try await Task.sleep(nanoseconds: UInt64(id * 1_000_000_000))
+            print("Task \(id) ended.")
+        }
+    }
+}
+```
+This code adds a number of tasks, represented by `runTask(id:)` to be run in a group concurrently.
+
+The following describes a view displaying tasks run in parallel.  Each task doesn't return anything.
+
+```swift
+struct d: View {
+    @State var title: String = "Use a task group to start tasks in parallel"
+    @State var results: [String] = []
+    let ids: [Int] = [4, 15, 17, 2, 3]
+    @State var currentTime: Date = Date.now
+    
+    var body: some View {
+        Button(title) {
+            print(title)
+            Task {
+                results = await test(ids: ids)
+            }
+        }
+        
+        List(ids, id: \.self) { initial in
+            Text(String(initial))
+        }
+        
+        Text(Date.now.description)
+        
+        List(results, id: \.self) { result in
+            Text(result)
+        }
+        
+        Text(Date.now.description)
+    }
+    
+    func test(ids: [Int]) async -> [String] {
+        return await withTaskGroup(of: String.self) { group in
+            var results = [String]()
+            
+            // adding tasks to the group
+            for id in ids {
+                group.addTask {
+                    print("running \(id)")
+                    return await self.runTask(id: id)
+                }
+            }
+            
+            // await until all tasks complete
+            for await str in group {
+                results.append(str)
+            }
+            
+            return results
+        }
+    }
+    
+    func runTask(id: Int) async -> String {
+        do {
+            // Simulate a network call
+            try await Task.sleep(nanoseconds: UInt64(id * 1_000_000_000))
+            return "Task \(id) ended. \(Date.now)"
+        } catch {
+            return "Error: \(error.localizedDescription)"
+        }
+    }
+}
+```
+This code adds a number of tasks, represented by `runTask(id: Int) async -> String` to be run in a group concurrently.  Each task returns a String.
 

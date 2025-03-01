@@ -7,1173 +7,273 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "53EBD8AC-67F9-47A8-9D99-F871C4293C72"
+            uuid = "E3A3FC86-9FB4-44D1-852B-3E76FBC8EF50"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/BasicAsynchronous.swift"
+            filePath = "AsynchronousProgramming/AsyncStream/IntStream/IntStream.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
-            landmarkName = "doSomething(id:)"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "getStocks()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "82D8AB25-606A-498E-922D-2A09DF16A3A2"
+            uuid = "ABF4FEE5-5C89-4BB5-8BA9-09BA392301D3"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/AsyncTasks.swift"
+            filePath = "AsynchronousProgramming/Services/StockService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "start()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7DF2A1F0-DE88-45FA-BD8D-31AA0F3EF98D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AsynchronousProgramming/Services/StockService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "23"
             endingLineNumber = "23"
-            landmarkName = "initTask()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3EC23CCC-64E8-4734-828A-94AB08131007"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/BasicAsynchronous.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "executeTask()"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "5745C545-4755-403D-98E6-BB67C5087BF1"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/AsyncTasks.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "initTask()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "0AD34D62-6E16-41BA-BD59-22C8A2B73BA0"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/AsyncSequenceResearch.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
-            landmarkName = "AsyncStreamConsumer"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "464593BC-64C1-44FC-BEFB-78F4E1B99BB8"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/AsyncSequenceResearch.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
-            landmarkName = "generate()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "136A8E7E-DA62-4560-8086-89D74D6AAD16"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/AsyncSequenceResearch.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "generateData(completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4294D160-F6D5-4255-AE3D-3EA8142B3CD0"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/AsyncSequenceResearch.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
-            landmarkName = "TestEvent"
-            landmarkType = "14">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C8676E4E-C51D-44DB-81E3-228A97193A17"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/AsyncSequenceResearch.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "162"
-            endingLineNumber = "162"
-            landmarkName = "DownloadEvent"
-            landmarkType = "14">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "906C4B8B-067E-413F-B131-F71B58AE4E8E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/ContentView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
-            landmarkName = "body"
+            landmarkName = "stream"
             landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "66348402-9F11-49B6-BA03-AD22A5569887"
+            uuid = "AB093B4A-FC1D-480B-84D2-1D2B5338FA4D"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/AsyncSequenceResearch.swift"
+            filePath = "AsynchronousProgramming/Services/StockService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
-            landmarkName = "start()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "59DECDDC-2F99-43B0-9401-C022628C8984"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/AsyncSequenceResearch.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
-            landmarkName = "start()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8C75859F-B71F-4ECC-9C51-314344B00051"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/AsyncSequenceResearch.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
-            landmarkName = "start()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D3A7BA70-6491-49EB-8979-7D1C463000F9"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/AsyncSequenceResearch.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
-            landmarkName = "generateData(completion:)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "991EDFF5-3C55-4AFD-B50C-4F744E1A1A8B"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/AsyncSequenceResearch.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
-            landmarkName = "generateData(completion:)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "40EBFF51-3537-479C-B0C0-93694D8F6D3D"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/ContentView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
-            landmarkName = "body"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "stream"
             landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "AB574AE8-1DBD-42B6-9CC0-417D97779B54"
+            uuid = "6925E31A-B8EC-4C01-9254-383013F0CD83"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/ContentView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "0171AEE0-0C64-47F9-9A1B-4E024ECF4944"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/ContentView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
-            landmarkName = "body"
-            landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "0171AEE0-0C64-47F9-9A1B-4E024ECF4944 - 88d685eeeca088ae"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for closure #1 () async -&gt; () in closure #3 @Swift.MainActor () -&gt; () in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.Text&gt;, SwiftUI.Button&lt;SwiftUI.Text&gt;, SwiftUI.Button&lt;SwiftUI.Text&gt;)&gt; in AsynchronousProgramming.AsyncView.body.getter : some"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/ContentView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "130"
-                  endingLineNumber = "130">
-               </Location>
-               <Location
-                  uuid = "0171AEE0-0C64-47F9-9A1B-4E024ECF4944 - c9c0be48a5e0beda"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for closure #1 () async -&gt; () in closure #3 @Swift.MainActor () -&gt; () in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.Text&gt;, SwiftUI.Button&lt;SwiftUI.Text&gt;, SwiftUI.Button&lt;SwiftUI.Text&gt;)&gt; in AsynchronousProgramming.AsyncView.body.getter : some"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/ContentView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "130"
-                  endingLineNumber = "130">
-               </Location>
-               <Location
-                  uuid = "0171AEE0-0C64-47F9-9A1B-4E024ECF4944 - 1e49a6ac83fd74bc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for closure #1 () async -&gt; () in closure #3 @Swift.MainActor () -&gt; () in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.Text&gt;, SwiftUI.Button&lt;SwiftUI.Text&gt;, SwiftUI.Button&lt;SwiftUI.Text&gt;)&gt; in AsynchronousProgramming.AsyncView.body.getter : some"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/ContentView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "130"
-                  endingLineNumber = "130">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3ED3B257-94CA-4BB4-B9BF-F72ED03C476F"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/ContentView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3EBFC590-D928-4B2B-A242-D997D8D3FD95"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/AsyncSequenceResearch.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "218"
-            endingLineNumber = "218"
-            landmarkName = "startDownload(completion:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "3EBFC590-D928-4B2B-A242-D997D8D3FD95 - 748f75ff069f54e6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for AsynchronousProgramming.DownloadAPI.startDownload(completion: (Swift.Double) -&gt; ()) async -&gt; ()"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/BasicAsynchronous/AsyncSequenceResearch.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "219"
-                  endingLineNumber = "219">
-               </Location>
-               <Location
-                  uuid = "3EBFC590-D928-4B2B-A242-D997D8D3FD95 - 9a5876cc7796aab1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for AsynchronousProgramming.DownloadAPI.startDownload(completion: (Swift.Double) -&gt; ()) async -&gt; ()"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/BasicAsynchronous/AsyncSequenceResearch.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "219"
-                  endingLineNumber = "219">
-               </Location>
-               <Location
-                  uuid = "3EBFC590-D928-4B2B-A242-D997D8D3FD95 - 3846022f941011e4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for AsynchronousProgramming.DownloadAPI.startDownload(completion: (Swift.Double) -&gt; ()) async -&gt; ()"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/BasicAsynchronous/AsyncSequenceResearch.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "219"
-                  endingLineNumber = "219">
-               </Location>
-               <Location
-                  uuid = "3EBFC590-D928-4B2B-A242-D997D8D3FD95 - e1d99947e357b065"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for AsynchronousProgramming.DownloadAPI.startDownload(completion: (Swift.Double) -&gt; ()) async -&gt; ()"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/BasicAsynchronous/AsyncSequenceResearch.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "219"
-                  endingLineNumber = "219">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1311AC28-216D-466B-8AB7-70737F02B93A"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/AsyncSequenceResearch.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
-            landmarkName = "startDownload(completion:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "1311AC28-216D-466B-8AB7-70737F02B93A - 3846022f941011c3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for AsynchronousProgramming.DownloadAPI.startDownload(completion: (Swift.Double) -&gt; ()) async -&gt; ()"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/BasicAsynchronous/AsyncSequenceResearch.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "220"
-                  endingLineNumber = "220">
-               </Location>
-               <Location
-                  uuid = "1311AC28-216D-466B-8AB7-70737F02B93A - e1d99947e357b042"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for AsynchronousProgramming.DownloadAPI.startDownload(completion: (Swift.Double) -&gt; ()) async -&gt; ()"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/BasicAsynchronous/AsyncSequenceResearch.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "220"
-                  endingLineNumber = "220">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1FD2D2AB-82C9-4C0B-B272-413A735BEC28"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/CombineInterop/CombineAsync.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
-            landmarkName = "body"
-            landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "1FD2D2AB-82C9-4C0B-B272-413A735BEC28 - 80509b958ed3f201"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for closure #1 () async -&gt; () in closure #1 @Swift.MainActor () -&gt; () in AsynchronousProgramming.CombineView.body.getter : some"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/CombineInterop/CombineAsync.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "50"
-                  endingLineNumber = "50">
-               </Location>
-               <Location
-                  uuid = "1FD2D2AB-82C9-4C0B-B272-413A735BEC28 - 4d2454abe7ac109c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for closure #1 () async -&gt; () in closure #1 @Swift.MainActor () -&gt; () in AsynchronousProgramming.CombineView.body.getter : some"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/CombineInterop/CombineAsync.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "50"
-                  endingLineNumber = "50">
-               </Location>
-               <Location
-                  uuid = "1FD2D2AB-82C9-4C0B-B272-413A735BEC28 - 7ae1f95bba376e1f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for closure #1 () async -&gt; () in closure #1 @Swift.MainActor () -&gt; () in AsynchronousProgramming.CombineView.body.getter : some"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/CombineInterop/CombineAsync.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "50"
-                  endingLineNumber = "50">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "585F5F45-E930-448A-80A8-BB4671CE48EE"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/CombineInterop/CombineAsync.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
-            landmarkName = "test_async()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "585F5F45-E930-448A-80A8-BB4671CE48EE - 508c00cccab07bc5"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for AsynchronousProgramming.CombineViewModel.test_async() async -&gt; Swift.Int"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/CombineInterop/CombineAsync.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21">
-               </Location>
-               <Location
-                  uuid = "585F5F45-E930-448A-80A8-BB4671CE48EE - 535dd42d67ad2c28"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for AsynchronousProgramming.CombineViewModel.test_async() async -&gt; Swift.Int"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/CombineInterop/CombineAsync.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21">
-               </Location>
-               <Location
-                  uuid = "585F5F45-E930-448A-80A8-BB4671CE48EE - cf1ee86d0e9bfc7"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for AsynchronousProgramming.CombineViewModel.test_async() async -&gt; Swift.Int"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/CombineInterop/CombineAsync.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21">
-               </Location>
-               <Location
-                  uuid = "585F5F45-E930-448A-80A8-BB4671CE48EE - 992b825debf51dd8"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for AsynchronousProgramming.CombineViewModel.test_async() async -&gt; Swift.Int"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/CombineInterop/CombineAsync.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C91B0862-DB80-4252-8EFA-DC01860E0BC6"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/CombineInterop/Extensions.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
-            landmarkName = "async()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1B8D8404-653A-4B08-80E7-88C5B97EF4C4"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/CombineInterop/Extensions.swift"
+            filePath = "AsynchronousProgramming/Services/DataService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "28"
             endingLineNumber = "28"
-            landmarkName = "async()"
+            landmarkName = "loadJSON(fileName:directoryPath:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "181FC773-1A89-4EB4-9734-7C6CC3F54BC3"
-            shouldBeEnabled = "Yes"
+            uuid = "F4B08852-83D4-4665-8AD8-45FD7614E300"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/CombineInterop/Extensions.swift"
+            filePath = "AsynchronousProgramming/Services/DataService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "async()"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "loadJSON(fileName:directoryPath:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D4E74998-2D84-4A1D-A90A-A95E3BD5678B"
-            shouldBeEnabled = "Yes"
+            uuid = "282A45D7-1C18-4F42-9155-48C069CE53A8"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/CombineInterop/CombineAsync.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "test_async_new()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "D4E74998-2D84-4A1D-A90A-A95E3BD5678B - 743a3318a0ef4ec7"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for AsynchronousProgramming.CombineViewModel.test_async_new() async -&gt; Swift.String"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/CombineInterop/CombineAsync.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "33"
-                  endingLineNumber = "33">
-               </Location>
-               <Location
-                  uuid = "D4E74998-2D84-4A1D-A90A-A95E3BD5678B - 6d8d7f2554eec077"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Int) -&gt; Swift.String in AsynchronousProgramming.CombineViewModel.test_async_new() async -&gt; Swift.String"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/CombineInterop/CombineAsync.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "33"
-                  endingLineNumber = "33">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "EA14961D-C2FF-432D-B266-D4CDF41CB6F0"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/BasicAsynchronous.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
-            landmarkName = "doSomething(id:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "EA14961D-C2FF-432D-B266-D4CDF41CB6F0 - bb83b0c4938f497d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "AsynchronousProgramming.BasicAsynchronous.doSomething(id: Swift.Int) async -&gt; ()"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/BasicAsynchronous/BasicAsynchronous.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "46"
-                  endingLineNumber = "46">
-               </Location>
-               <Location
-                  uuid = "EA14961D-C2FF-432D-B266-D4CDF41CB6F0 - 2de788a2b7926a97"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for AsynchronousProgramming.BasicAsynchronous.doSomething(id: Swift.Int) async -&gt; ()"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/BasicAsynchronous/BasicAsynchronous.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "46"
-                  endingLineNumber = "46">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "66DB1C8E-9F13-4A6A-8B70-54D7DB83B194"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/BasicAsynchronous.swift"
+            filePath = "AsynchronousProgramming/Services/DataService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "47"
             endingLineNumber = "47"
-            landmarkName = "executeTask()"
-            landmarkType = "9">
-            <Locations>
-               <Location
-                  uuid = "66DB1C8E-9F13-4A6A-8B70-54D7DB83B194 - 66c2eb8448474bb4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "executeTask() async -&gt; ()"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/BasicAsynchronous/BasicAsynchronous.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "47"
-                  endingLineNumber = "47">
-               </Location>
-               <Location
-                  uuid = "66DB1C8E-9F13-4A6A-8B70-54D7DB83B194 - fa14537ee9fcebdd"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for executeTask() async -&gt; ()"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/BasicAsynchronous/BasicAsynchronous.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "47"
-                  endingLineNumber = "47">
-               </Location>
-            </Locations>
+            landmarkName = "deserialize(jsonString:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DC48A03F-08F3-477F-BAF7-CB88288E206A"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/InfiniteStreams.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
-            landmarkName = "InfiniteStream"
-            landmarkType = "3">
-            <Locations>
-               <Location
-                  uuid = "DC48A03F-08F3-477F-BAF7-CB88288E206A - a8449408fa856f5f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "AsynchronousProgramming.InfiniteStream.subscribe() async -&gt; Swift.AsyncStream&lt;AsynchronousProgramming.AsyncEvent&lt;Swift.Int&gt;&gt;"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/BasicAsynchronous/InfiniteStreams.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "54"
-                  endingLineNumber = "54">
-               </Location>
-               <Location
-                  uuid = "DC48A03F-08F3-477F-BAF7-CB88288E206A - 95bbf99316c1f5ab"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for AsynchronousProgramming.InfiniteStream.subscribe() async -&gt; Swift.AsyncStream&lt;AsynchronousProgramming.AsyncEvent&lt;Swift.Int&gt;&gt;"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/BasicAsynchronous/InfiniteStreams.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "54"
-                  endingLineNumber = "54">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "73A7F97B-18DB-4432-815E-A0B37697AD12"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/InfiniteStreams.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "InfiniteStream"
-            landmarkType = "3">
-            <Locations>
-               <Location
-                  uuid = "73A7F97B-18DB-4432-815E-A0B37697AD12 - a8449408fa856f5f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "AsynchronousProgramming.InfiniteStream.subscribe() async -&gt; Swift.AsyncStream&lt;AsynchronousProgramming.AsyncEvent&lt;Swift.Int&gt;&gt;"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/BasicAsynchronous/InfiniteStreams.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "54"
-                  endingLineNumber = "54">
-               </Location>
-               <Location
-                  uuid = "73A7F97B-18DB-4432-815E-A0B37697AD12 - 95bbf99316c1f5ab"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for AsynchronousProgramming.InfiniteStream.subscribe() async -&gt; Swift.AsyncStream&lt;AsynchronousProgramming.AsyncEvent&lt;Swift.Int&gt;&gt;"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/BasicAsynchronous/InfiniteStreams.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "54"
-                  endingLineNumber = "54">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4BCD8893-3652-4F5E-83AE-B91835A77448"
+            uuid = "401E13C0-8498-4301-8E6D-33496753403E"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/InfiniteStreams.swift"
+            filePath = "AsynchronousProgramming/Services/DataService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "deserialize(jsonString:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F41F9D86-9B8B-4417-BB94-7121D407FE05"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AsynchronousProgramming/Services/DataService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "deserialize(jsonString:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4D179389-F95D-434E-9161-6BAADC571408"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AsynchronousProgramming/Services/DataService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "deserialize(jsonString:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8F28C4C1-0D3B-4C0C-8553-55B1C6F8B48A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AsynchronousProgramming/Services/DataService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "58"
             endingLineNumber = "58"
-            landmarkName = "subscribe()"
+            landmarkName = "deserialize(jsonString:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C1920E52-003C-47D5-A08A-629092FF3773"
+            uuid = "3991B9CA-00A2-42E2-A03F-DDAB78C71AB1"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/InfiniteStreams.swift"
+            filePath = "AsynchronousProgramming/Services/DataService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "loadJSON(fileName:directoryPath:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B07F7523-A818-45FE-8EC5-8F8627F0FBA6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AsynchronousProgramming/Services/DataService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "loadJSON(fileName:directoryPath:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D63A757B-CBF1-4804-80CA-E75EE2A01BBF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AsynchronousProgramming/AsyncStream/StockView/GenericStream.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "init(work:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F89858A6-D900-4B79-9518-83B7738D832B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AsynchronousProgramming/AsyncStream/StockView/GenericStream.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "72"
             endingLineNumber = "72"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B4DEB8A4-B327-4D48-82A2-75DB20D369FE"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/InfiniteStreams.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "subscribe()"
+            landmarkName = "cancelStream()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "052BDF0A-D38A-478D-8BF2-468C5C1A33DA"
+            uuid = "9B37DF66-7542-4034-9E7D-7B6C0F1D8271"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/InfiniteStreams.swift"
+            filePath = "AsynchronousProgramming/AsyncStream/StockView/GenericStream.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
-            landmarkName = "body"
-            landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "052BDF0A-D38A-478D-8BF2-468C5C1A33DA - 2db560970263c151"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for closure #1 () async -&gt; () in closure #1 @Swift.MainActor () -&gt; () in AsynchronousProgramming.InfiniteStreamView.body.getter : some"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/BasicAsynchronous/InfiniteStreams.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "70"
-                  endingLineNumber = "70">
-               </Location>
-               <Location
-                  uuid = "052BDF0A-D38A-478D-8BF2-468C5C1A33DA - c7e967be29abb97"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for closure #1 () async -&gt; () in closure #1 @Swift.MainActor () -&gt; () in AsynchronousProgramming.InfiniteStreamView.body.getter : some"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/BasicAsynchronous/InfiniteStreams.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "70"
-                  endingLineNumber = "70">
-               </Location>
-               <Location
-                  uuid = "052BDF0A-D38A-478D-8BF2-468C5C1A33DA - 9e72eb033f48bd53"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for closure #1 () async -&gt; () in closure #1 @Swift.MainActor () -&gt; () in AsynchronousProgramming.InfiniteStreamView.body.getter : some"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/BasicAsynchronous/InfiniteStreams.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "70"
-                  endingLineNumber = "70">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "498B718A-A9EB-43F2-A308-5FF4FC04911B"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/InfiniteStreams.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "closureA"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "763A68E3-7812-4867-A5FB-48B2D3A93E88"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/InfiniteStreams.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
-            landmarkName = "closureA"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4C42B38A-78F3-40B2-BD92-69C4C6EE97C4"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/Stopwatch.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "start()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "4C42B38A-78F3-40B2-BD92-69C4C6EE97C4 - fc61bcfb5be0689a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for AsynchronousProgramming.StopwatchViewModel.start() async -&gt; ()"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/BasicAsynchronous/Stopwatch.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "40"
-                  endingLineNumber = "40">
-               </Location>
-               <Location
-                  uuid = "4C42B38A-78F3-40B2-BD92-69C4C6EE97C4 - ec2dedcca4305cf1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for AsynchronousProgramming.StopwatchViewModel.start() async -&gt; ()"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/BasicAsynchronous/Stopwatch.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "40"
-                  endingLineNumber = "40">
-               </Location>
-               <Location
-                  uuid = "4C42B38A-78F3-40B2-BD92-69C4C6EE97C4 - b6f9a3c53815ac18"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for AsynchronousProgramming.StopwatchViewModel.start() async -&gt; ()"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/BasicAsynchronous/Stopwatch.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "40"
-                  endingLineNumber = "40">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2EA66740-0CA6-4FCD-983C-9266EFBA3862"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/Stopwatch.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "stop()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "2EA66740-0CA6-4FCD-983C-9266EFBA3862 - 2e7f09f8aa65321d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for AsynchronousProgramming.StopwatchViewModel.stop() async -&gt; ()"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/BasicAsynchronous/Stopwatch.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "48"
-                  endingLineNumber = "48">
-               </Location>
-               <Location
-                  uuid = "2EA66740-0CA6-4FCD-983C-9266EFBA3862 - 69946963a922d659"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for AsynchronousProgramming.StopwatchViewModel.stop() async -&gt; ()"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/BasicAsynchronous/Stopwatch.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "48"
-                  endingLineNumber = "48">
-               </Location>
-               <Location
-                  uuid = "2EA66740-0CA6-4FCD-983C-9266EFBA3862 - e1d788694b67f65b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for AsynchronousProgramming.StopwatchViewModel.stop() async -&gt; ()"
-                  moduleName = "AsynchronousProgramming.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Phil/Documents/GitHub/AsynchronousProgramming/AsynchronousProgramming/BasicAsynchronous/Stopwatch.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "48"
-                  endingLineNumber = "48">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "975FC291-D851-439F-872F-FAB4E31AA56C"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/BasicAsynchronous/Stopwatch.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "stop()"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "cancelStream()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E402A9F8-82B6-4BA7-9C14-2D89619215CE"
+            uuid = "8A3B0644-0EED-4684-88B0-F6717281B1AA"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AsynchronousProgramming/AsyncStream/EventGenerator.swift"
+            filePath = "AsynchronousProgramming/AsyncStream/StockView/StockView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "17"
-            endingLineNumber = "17"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "getStocks()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

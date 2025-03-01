@@ -87,7 +87,12 @@ struct ContentView: View {
 //        InfiniteStreamView()
 //        StopwatchView()
 //        EventGeneratorView()
-        TaskView()
+//        TaskView()
+//        TaskGroupView()
+//        TaskGroupViewWithReturn()
+//        ItemGeneratorView()
+//        UserGenerationView()
+        StockView()
     }
 }
 
