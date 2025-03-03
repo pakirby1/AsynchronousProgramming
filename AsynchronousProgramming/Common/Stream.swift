@@ -70,9 +70,12 @@ class Stream<T> : TaskCancellable {
     private func cancelStream() {
         // update running
         self.running = false
+        print("self.running = \(self.running)")
         
         // finish the continuation
+        print("before continuation.finish()")
         continuation.finish()
+        print("continuation.finish() executed")
 
         // cancel and set task to nil, which should call the onTermination closure on the continuation
         cancelTask(label: "NewStream.task")

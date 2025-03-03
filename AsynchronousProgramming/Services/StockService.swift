@@ -30,6 +30,7 @@ class StockService {
             return stock
         }
         
+        print("No more data to send.  ending stream (returning nil).")
         return nil
     }
     

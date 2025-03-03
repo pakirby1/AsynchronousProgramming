@@ -287,7 +287,7 @@ struct AsyncView: View {
 ```swift
 func trackDownload() -> AsyncStream<Double> {
     AsyncStream<Double> { continuation in 
-        let delegate = DownloadProgressDelegate(continuation: continuation)
+        let progressDelegate = DownloadProgressDelegate(continuation: continuation)
         URLSession.shared.delegate = progressDelegate
     }
 }
@@ -344,7 +344,7 @@ private func subscribeToDownloadTask() {
         .store(in: &cancellables)
 }
 ```
-Here we specifying the scheduler to be `RunLoop.main` to ensure that updates to the view are executed on the main thread.  A corresponding `AsyncStream` implementation might look like this:
+Here we are specifying the scheduler to be `RunLoop.main` to ensure that updates to the view are executed on the main thread.  A corresponding `AsyncStream` implementation might look like this:
 ```swift
 @MainActor
 private func performDownload() async {
@@ -537,7 +537,7 @@ returns a random integer from 1 to 10.  What if we used the version below...
 ```
 
 # SwiftUI Integration
-When using SwiftUI views and `AsyncStream` objects, we can use the `.task` view modifier to initiate event generation from our generator:
+When using SwiftUI views and `AsyncStream` objects, we can use the `.task` view modifier to initiate event generation from our generator whenever the SwiftUI view is displayed:
 
 ```mermaid
 sequenceDiagram
@@ -1298,6 +1298,31 @@ extension TaskCancellable {
 }
 ```
 This function cancels the task and then sets the `self.task` to nil.
+
+Note the order of execution:
+```
+gettting data
+gettting data
+gettting data
+No more data to send.  ending stream (returning nil).
+gettting data
+NewStream.stop() started
+self.running = false
+before continuation.finish()
+continuation.onTermination
+continuation.finish() executed
+NewStream.task cancelled
+NewStream.task deinitialized
+NewStream.stop() ended
+No more data to send.  ending stream (returning nil).
+```
+
+The call to `continuation.finish()` triggers the call to `continuation.onTermination`.  The task is cancelled (which just means that is sets its cancelled flag to true) and deinitialized.  It is important that both the task _and_ the continuation are finished/cancelled when the stream is being stopped, otherwise the continuation will continue to run.
+
+
+## Infinite Number Stream View
+This project demonstrates displaying an infinite stream of integers.  It uses the same architecture as the Stock View.
+
 
 ## Task Groups
 Task groups allow you to run a batch of Tasks in parallel, add their results (if any) to the group, and allow an object to iterate over the results _once all requests have completed_.
