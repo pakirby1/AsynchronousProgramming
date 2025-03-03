@@ -1,5 +1,5 @@
 //
-//  GenericStream.swift
+//  Stream.swift
 //  AsynchronousProgramming
 //
 //  Created by Phil Kirby on 2/26/25.

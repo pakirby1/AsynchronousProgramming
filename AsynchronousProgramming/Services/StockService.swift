@@ -14,12 +14,10 @@ let stream = NewStream() {
 */
 class StockService {
     let dataService = JSONDataService()
-    private(set) var stocks: [Stock?] = []
+    private(set) var stocks: [Stock] = []
     private var currentIndex: Int = 0
     
     lazy var stream = Stream<Stock?>() { [weak self] in
-//        return Double.random(in: 5.0..<9.0)
-        
         guard let self = self else {
             return nil
         }
@@ -36,8 +34,8 @@ class StockService {
     }
     
     func start() -> AsyncStream<Stock?> {
-        // Get the array of stocks
         Task {
+            // Get the array of stocks
             self.stocks = await dataService.getStocks()
             stream.start()
         }

@@ -1094,6 +1094,211 @@ class WorkItem<T> {
 }
 ```
 
+## Stock View
+![DebugMemoryGraph](assets/images/StockView.png)
+
+This small app demonstrates streaming events sourced from a JSON file to display stock information for a set of corporations.  The app contains the following objects:
+
+- `StockView`
+- `StockDetailView`
+- `StockViewModel`
+- `Stock`
+- `StockService`
+- `Stream<T>`
+
+The following sequence diagram describes the interaction between each object
+
+```mermaid
+sequenceDiagram
+    box @MainActor
+    participant StockView
+    participant StockViewModel
+    participant StockDetailView
+    end
+    participant Stream~T~
+    participant StockService
+    participant JSONDataService
+
+    alt Task
+    StockView->>StockViewModel: await getStocks()
+    StockViewModel->>StockService: for await model in start()
+    alt Task
+    StockService->>JSONDataService: await getStocks()
+    JSONDataService->>StockService: [Stock]
+    StockService->>Stream~T~: start()
+    end
+    Stream~T~->>StockViewModel: Stock?
+    StockViewModel->>StockViewModel: update @Published currentStock
+    StockViewModel->>StockView: 
+    StockView->>StockDetailView: Stock?
+    end
+```
+Here, we see that we have a few objects that are annotated with the `@MainActor` attribute.  This attribute forces all functions to be executed on the main thread.  By default, SwiftUI views run on the main actor and so they implicitly have the `@MainActor` attribute.  The `StockViewModel` uses this attribute because the `@Published` variables are used to update the UI, and you should only ever update the UI on the main thread.
+
+When the user taps the Start button, we want to start the stream.  To do so,
+we wrap the call to `viewModel.getStocks()` in a `Task`:
+
+```swift
+CustomButtonView(text: "Start", color: .green) {
+    print("Start button tapped")
+    Task {
+        await viewModel.getStocks()
+    }
+}
+```
+We need to wrap the call within a task because the `getStocks()` function is `async`.
+
+The `StockViewModel.getStocks()` function:
+```swift
+func getStocks() async {
+    for await model in service.start() {
+        guard let stock = model else {
+            service.stop()
+            return
+        }
+        
+        currentStock = stock
+        stockHistory.append(currentStock)
+    }
+} 
+```
+The `start()` function is also `async` and returns an `AsyncStream<Stock?>`.  The stream is iterated over and for each `Stock` object in the stream is used to update the `currentStock` which will cause the SwiftUI views to update.  The `StockService` :
+```swift
+class StockService {
+    let dataService = JSONDataService()
+    private(set) var stocks: [Stock] = []
+    private var currentIndex: Int = 0
+    
+    lazy var stream = Stream<Stock?>() { [weak self] in
+        guard let self = self else {
+            return nil
+        }
+        
+        let len = stocks.count
+        
+        if self.currentIndex < len {
+            let stock = stocks[self.currentIndex]
+            self.currentIndex += 1
+            return stock
+        }
+        
+        return nil
+    }
+    
+    func start() -> AsyncStream<Stock?> {
+        Task {
+            // Get the array of stocks
+            self.stocks = await dataService.getStocks()
+            stream.start()
+        }
+        
+        return stream.stream
+    }
+    
+    func stop() {
+        stream.stop()
+    }
+}
+```
+The closure passed to the `Stream` initializer is executed multiple times when the `Stream.start()` function is executed:
+```swift
+func start() {
+    running = true
+    
+    func buildTask() -> Task<(), Never>? {
+        return Task<(), Never> {
+            print("running startTask()")
+
+            while (running) {
+                print("gettting data")
+                try? await Task.sleep(for: .milliseconds(2000))
+                try? Task.checkCancellation()
+                let value = handler()
+                
+                self.continuation.yield(value)
+            }
+        }
+    }
+    
+    self.task = buildTask()
+}
+```
+The `running` boolean flag represents the running state of the stream.  The `start()` will check for task cancellation before obtaining a value from the `handler()`:
+```swift
+{ [weak self] in
+    guard let self = self else {
+        return nil
+    }
+    
+    let len = stocks.count
+    
+    if self.currentIndex < len {
+        let stock = stocks[self.currentIndex]
+        self.currentIndex += 1
+        return stock
+    }
+    
+    return nil
+}
+```
+As long as the stream state is set to "running", the handler will get called.  The stream captures the `StockService.stocks` and `StockService.currentIndex` variables and will keep track of the current index into the `stocks` array. The handler will return `nil` when all elements of the array have been visited.  Looking at the code inside of `getStocks()`:
+```swift
+for await model in service.start() {
+    guard let stock = model else {
+        service.stop()
+        return
+    }
+    
+    currentStock = stock
+    stockHistory.append(currentStock)
+}
+```
+As each element is processed, if the element is not-nil, we update the `currentStock` and appends the element to the `stockHistory` property.  If the element is `nil`, we call the services' `stop()` function:
+```swift
+func stop() {
+    stream.stop()
+}
+```
+calling this function will call the `stop()` function on the stream which will terminate the stream by calling `cancelTask(label:)`
+```swift
+func stop() {
+    print("NewStream.stop() started")
+    cancelStream()
+    
+    print("NewStream.stop() ended")
+}
+    
+private func cancelStream() {
+    // update running
+    self.running = false
+    
+    // finish the continuation
+    continuation.finish()
+
+    // cancel and set task to nil, which should call the onTermination closure on the continuation
+    cancelTask(label: "NewStream.task")
+}
+```
+Since the stream adopts the `TaskCancellable` protocol:
+```swift
+protocol TaskCancellable : AnyObject {
+    associatedtype Element
+    var task: Task<Element, Never>? { get set }
+    func cancelTask(label: String)
+}
+
+extension TaskCancellable {
+    func cancelTask(label: String) {
+        guard let t = self.task else { return }
+        t.cancel()
+        self.task = nil
+        print("\(label) cancelled")
+        print("\(label) deinitialized")
+    }
+}
+```
+This function cancels the task and then sets the `self.task` to nil.
+
 ## Task Groups
 Task groups allow you to run a batch of Tasks in parallel, add their results (if any) to the group, and allow an object to iterate over the results _once all requests have completed_.
 
