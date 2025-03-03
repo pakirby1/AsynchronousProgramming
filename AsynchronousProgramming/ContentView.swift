@@ -92,7 +92,8 @@ struct ContentView: View {
 //        TaskGroupViewWithReturn()
 //        ItemGeneratorView()
 //        UserGenerationView()
-        StockView()
+//        StockView()
+        InfiniteNumberView()
     }
 }
 

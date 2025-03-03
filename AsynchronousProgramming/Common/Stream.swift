@@ -40,7 +40,7 @@ class Stream<T> : TaskCancellable {
 
                 while (running) {
                     print("gettting data")
-                    try? await Task.sleep(for: .milliseconds(2000))
+                    try? await Task.sleep(for: .milliseconds(5000))
                     try? Task.checkCancellation()
                     let value = handler()
                     

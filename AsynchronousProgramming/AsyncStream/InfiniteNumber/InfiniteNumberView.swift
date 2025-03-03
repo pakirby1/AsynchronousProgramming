@@ -9,22 +9,22 @@ struct InfiniteNumberView: View {
             Image(systemName: "arrow.clockwise")
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
-            Text("Stock View").font(.system(size: 36))
+            Text("Infinite Number View").font(.system(size: 36))
             HStack {
                 CustomButtonView(text: "Start", color: .green) {
                     print("Start button tapped")
                     Task {
-                        await viewModel.getStocks()
+                        await viewModel.getNumbers()
                     }
                 }
             
                 CustomButtonView(text:"Stop", color: .red) {
                     print("Stop button tapped")
-                    viewModel.stopStockStream()
+                    viewModel.stopNumbers()
                 }
             }
             
-            StockDetailView(stock: viewModel.currentStock)
+            Text("\(viewModel.currentNumber)")
         }
         
         Spacer()
@@ -33,28 +33,69 @@ struct InfiniteNumberView: View {
 
 @MainActor
 class InfiniteNumberViewModel : ObservableObject {
-    @Published var currentStock: Stock = Stock.defaultStock
-    @Published var stockHistory: [Stock?] = []
+    @Published var currentNumber: Int = -1
+    @Published var numberHistory: [Int] = []
     
-    let service = StockService()
+    let service = InfiniteNumberService()
 
     private func buildPoint(_ model: Double) -> LineChartPoint {
         return LineChartPoint(x: Date.now, y: model)
     }
     
-    func getStocks() async {
+    func getNumbers() async {
         for await model in service.start() {
-            guard let stock = model else {
+            guard let num = model else {
                 service.stop()
                 return
             }
             
-            currentStock = stock
-            stockHistory.append(currentStock)
+            currentNumber = num
+            numberHistory.append(num)
         }
     }
     
-    func stopStockStream() {
+    func stopNumbers() {
         self.service.stop()
     }
 }
+
+class InfiniteNumberService {
+    let dataService = JSONDataService()
+    private(set) var stocks: [Stock] = []
+    private var currentIndex: Int = 0
+    
+    lazy var stream = Stream<Int?>() { [weak self] in
+        guard let self = self else {
+            return nil
+        }
+        
+        // Just return a random Integer, forever
+        let ran = Int.random(in: 0..<Int.max)
+        print("data: \(ran)")
+        return ran
+        
+        /*
+        print("No more data to send.  ending stream (returning nil).")
+        return nil
+         */
+    }
+    
+    func start() -> AsyncStream<Int?> {
+//        Task {
+//            // Get the array of stocks
+//            self.stocks = await dataService.getStocks()
+//            stream.start()
+//        }
+        
+        Task {
+            stream.start()
+        }
+        
+        return stream.stream
+    }
+    
+    func stop() {
+        stream.stop()
+    }
+}
+
