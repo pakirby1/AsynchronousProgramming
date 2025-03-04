@@ -1066,8 +1066,7 @@ class Generator<T> {
                 
                 guard let exec = wi.execute else {
                     continuation.finish()
-                    return
-                }
+                    return                }
                 
                 let users:[T] = exec() // returns [User]
                 var i = 1
@@ -1322,6 +1321,69 @@ The call to `continuation.finish()` triggers the call to `continuation.onTermina
 
 ## Infinite Number Stream View
 This project demonstrates displaying an infinite stream of integers.  It uses the same architecture as the Stock View.
+
+```mermaid
+sequenceDiagram
+    box @MainActor
+    participant InfiniteNumberView
+    participant InfiniteNumberViewModel
+    end
+    participant Stream~T~
+    participant InfiniteNumberService
+
+    alt SwiftUI Task
+    InfiniteNumberView->>InfiniteNumberViewModel: await getNumbers()
+    InfiniteNumberViewModel->>InfiniteNumberService: for await model in start()
+    alt InfiniteNumberService.start Task
+    InfiniteNumberService->>Stream~T~: start()
+    alt buildTask Task 
+    Stream~T~->>Stream~T~: continuation.yield(ran)
+    end
+    end
+    Stream~T~->>InfiniteNumberViewModel: update currentNumber
+    InfiniteNumberViewModel->>InfiniteNumberView: refresh UI
+    end
+```
+
+We can use instruments to verify the number of tasks:
+![DebugMemoryGraph](assets/images/StreamRunning.png)
+
+This shows that we have 3 Tasks that are alive:
+- The first task from the SwiftUI view: (....finiteNumberView.body.getter)
+```swift
+Task {
+    await viewModel.getNumbers()
+}
+```
+
+- The second task from the `InfiniteNumberService.start()`
+```swift
+Task {
+    print("attempting to start stream.")
+    stream.start()
+    print("stream started.")
+}
+```
+
+- The third task from the `buildTask()` function:
+```swift
+return Task<(), Never> {
+    print("running buildTask()")
+
+    while (running) {
+        print("gettting data")
+        try? await Task.sleep(for: .milliseconds(5000))
+        try? Task.checkCancellation()
+        let value = handler()
+        
+        self.continuation.yield(value)
+    }
+}
+```
+
+The output shows that the SwiftUI Task is the task that executes the continuation.  Which happens to be the code running in `buildTask()`.  If we stop the stream by tapping the Stop button, we can see that the tasks and continuation are cancelled/finished.  
+
+![DebugMemoryGraph](assets/images/StreamStopped.png)
 
 
 ## Task Groups

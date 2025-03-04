@@ -60,7 +60,6 @@ class InfiniteNumberViewModel : ObservableObject {
 }
 
 class InfiniteNumberService {
-    let dataService = JSONDataService()
     private(set) var stocks: [Stock] = []
     private var currentIndex: Int = 0
     
@@ -73,22 +72,13 @@ class InfiniteNumberService {
         let ran = Int.random(in: 0..<Int.max)
         print("data: \(ran)")
         return ran
-        
-        /*
-        print("No more data to send.  ending stream (returning nil).")
-        return nil
-         */
     }
     
     func start() -> AsyncStream<Int?> {
-//        Task {
-//            // Get the array of stocks
-//            self.stocks = await dataService.getStocks()
-//            stream.start()
-//        }
-        
         Task {
+            print("attempting to start stream.")
             stream.start()
+            print("stream started.")
         }
         
         return stream.stream

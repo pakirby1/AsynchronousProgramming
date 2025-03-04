@@ -36,7 +36,7 @@ class Stream<T> : TaskCancellable {
         
         func buildTask() -> Task<(), Never>? {
             return Task<(), Never> {
-                print("running startTask()")
+                print("running buildTask()")
 
                 while (running) {
                     print("gettting data")
