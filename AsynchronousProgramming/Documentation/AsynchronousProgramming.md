@@ -1336,11 +1336,13 @@ sequenceDiagram
     InfiniteNumberViewModel->>InfiniteNumberService: for await model in start()
     alt InfiniteNumberService.start Task
     InfiniteNumberService->>Stream~T~: start()
-    alt buildTask Task 
-    Stream~T~->>Stream~T~: continuation.yield(ran)
+    alt buildTask Task
+    loop
+        Stream~T~->>Stream~T~: continuation.yield(ran)
+        Stream~T~->>InfiniteNumberViewModel: update currentNumber
+    end 
     end
     end
-    Stream~T~->>InfiniteNumberViewModel: update currentNumber
     InfiniteNumberViewModel->>InfiniteNumberView: refresh UI
     end
 ```
@@ -1381,13 +1383,26 @@ return Task<(), Never> {
 }
 ```
 
+![DebugMemoryGraph](assets/images/TaskHierarchy.png)
 The output shows that the SwiftUI Task is the task that executes the continuation.  Which happens to be the code running in `buildTask()`.  If we stop the stream by tapping the Stop button, we can see that the tasks and continuation are cancelled/finished.  
 
 ![DebugMemoryGraph](assets/images/StreamStopped.png)
 
+The following state diagram shows the states and their transitions:
+
+```mermaid
+stateDiagram-v2
+    [*] --> Running: Start button
+    Running --> Finished: End of stream
+    Running --> Stopped: Stop button
+    Running --> Cancelled: Error thrown
+    Cancelled --> [*]
+    Finished --> [*]
+    Stopped --> [*]
+```
 
 ## Task Groups
-Task groups allow you to run a batch of Tasks in parallel, add their results (if any) to the group, and allow an object to iterate over the results _once all requests have completed_.
+Task groups allow you to run a batch of Tasks in parallel, add their results (if any) to the group, and allow an object to iterate over the results _once all requests have completed_.  The tasks within the group must all have the same type (i.e. `Task<Void.self, Never>`).
 
 > Items cannot be read from a group until _all_ tasks have completed.  Results from all tasks are available once all tasks have completed and their results have been added to the group.
 
@@ -1523,3 +1538,9 @@ struct d: View {
 ```
 This code adds a number of tasks, represented by `runTask(id: Int) async -> String` to be run in a group concurrently.  Each task returns a String.
 
+# Async Algorithms
+We can use the async algorithms package to provide additional support like merging and debouncing streams:
+
+[Async Algorithms](https://github.com/apple/swift-async-algorithms)
+
+## Merging async streams
