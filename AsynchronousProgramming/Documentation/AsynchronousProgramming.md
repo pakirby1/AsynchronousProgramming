@@ -1,3 +1,242 @@
+# Basic View
+This is a view that allows a user to start and stop a counter that is sourced from a timer.
+
+```mermaid
+flowchart LR
+    subgraph MainActor
+    direction LR
+    BasicView-- start() -->MagicButtonViewModel
+    BasicView-- stop() -->MagicButtonViewModel
+    MagicButtonViewModel
+    end
+    
+    subgraph task
+    direction LR
+    Ticker-. yield .->AsyncStream
+    AsyncStream-- creates -->Ticker
+    AsyncStream-. yield .->MagicButtonViewModel
+    makeAsyncSequence-- creates -->AsyncStream
+    end
+    
+    MainActor--> task
+```
+
+
+## `BasicView`
+This view uses a `MagicButtonViewModel` as a `@StateObject` to start, display the counter and stop the stream.
+
+```swift
+struct BasicView : View {
+    @StateObject var viewModel = MagicButtonViewModel()
+    
+    var body: some View {
+        Text("BasicView")
+        Text(viewModel.output)
+        
+        HStack {
+            CustomButtonView(text: "Start", color: .green) {
+                print("Start button tapped")
+                viewModel.start()
+            }
+            
+            CustomButtonView(text: "Stop", color: .red) {
+                print("Stop button tapped")
+                viewModel.stop()
+            }
+        }
+        
+    }
+}
+```
+
+## `MagicButtonViewModel`
+
+```swift
+@MainActor class MagicButtonViewModel: ObservableObject {
+    @Published var output: String = "🙈"
+    private var subscription: Task<(), Error>!
+    
+    public func start() {
+        func present(_ result: String) async throws {
+            output = result
+            
+            try await Task.sleep(nanoseconds: 1_000_000_000)
+        }
+        
+        subscription = Task {
+            for await number in TickerAsyncSequenceFactory().makeAsyncSequence() {
+                try await present("⏰ \(number) ⏰")
+            }
+        }
+    }
+    
+    public func stop() {
+        guard let sub = subscription else { return }
+        
+        sub.cancel()
+        print("cancelled task")
+    }
+}
+```
+
+The `start()` function will create the `Task` as `subscription`, which starts execution immediately.  The `stop()` function cancels the subscription.
+
+## `TickerAsyncSequenceFactory`
+```swift
+public class TickerAsyncSequenceFactory {
+    func makeAsyncSequence() -> AsyncStream<Int> {
+        AsyncStream(Int.self) { continuation in
+            let ticker = Ticker()
+            
+            ticker.tick = { continuation.yield($0) }
+            
+            continuation.onTermination = { _ in
+                ticker.stop()
+            }
+            
+            ticker.start()
+        }
+    }
+}
+```
+This will create the `Ticker` object, set the `tick` property to yield values to the stream, sets up the `onTermination` handler to stop the stream, and finally will start the stream by calling `start()` on the `ticker` object.
+
+## `Ticker`
+```swift
+public class Ticker {
+    deinit { print("Deinit Timer") }
+    public var tick: ((Int) -> ())?
+    public private(set) var counter: Int = 0
+    private var timer: Timer?
+    
+    init() {}
+    
+    func start() {
+        counter = 0
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
+            guard let `self` = self else { return }
+            self.tick?(self.counter)
+            self.counter += 1
+        }
+    }
+    
+    func stop() {
+        timer?.invalidate()
+    }
+}
+```
+When the `start()` function is called, a timer is created, which will repeat on a 1 second interval, and each time the timer fires, the `tick` closure is called (if set).
+
+
+```mermaid
+sequenceDiagram
+    participant BasicView
+    participant MagicButtonViewModel
+    participant TickerAsyncSequenceFactory
+    participant Task
+    participant AsyncStream~Int~
+    participant Ticker
+
+    alt Start
+    BasicView->>MagicButtonViewModel: viewModel.start()
+    MagicButtonViewModel->>Task: init()
+    activate Task
+    Task->>MagicButtonViewModel: subscription
+    MagicButtonViewModel->>TickerAsyncSequenceFactory: for await in makeAsyncSequence()
+    activate TickerAsyncSequenceFactory
+    TickerAsyncSequenceFactory->>AsyncStream~Int~: init()
+    activate AsyncStream~Int~
+    AsyncStream~Int~->>Ticker: init()
+    activate Ticker
+    AsyncStream~Int~->>Ticker: tick() = { continuation.yield($0) }
+    AsyncStream~Int~->>AsyncStream~Int~: continuation.onTermination
+    AsyncStream~Int~->>Ticker: start()
+    AsyncStream~Int~->>TickerAsyncSequenceFactory: 
+    TickerAsyncSequenceFactory->>MagicButtonViewModel: AsyncStream~Int~
+    deactivate TickerAsyncSequenceFactory
+    
+    loop Every second
+        Ticker->>AsyncStream~Int~: continuation.yield($0)
+        AsyncStream~Int~->>TickerAsyncSequenceFactory: value
+    end
+    TickerAsyncSequenceFactory->>MagicButtonViewModel: update output
+    MagicButtonViewModel->>BasicView: update UI
+    end
+    alt Stop
+    BasicView->>MagicButtonViewModel: viewModel.stop()
+    MagicButtonViewModel->>Task: cancel()
+    Task->>AsyncStream~Int~: continuation.onTermination
+    AsyncStream~Int~->>Ticker: stop()
+    deactivate Ticker
+    end
+    MagicButtonViewModel->>AsyncStream~Int~: deinit()
+    deactivate AsyncStream~Int~
+    MagicButtonViewModel->>MagicButtonViewModel: subscription = nil
+    MagicButtonViewModel->>Task: deinit()
+    deactivate Task
+```
+
+The interesting part of this interaction is that the `TickerAsyncSequenceFactory` is created, which will create the `AsyncStream<Int>`, passing in a closure that creates the `Ticker` object and sets the `continuation.onTermination` handler.  At this point we only have two objects in memory: The SwiftUI view and the `MagicButtonViewModel`:
+
+```
+init MagicButtonViewModel
+```
+
+```mermaid
+block-beta
+    BasicView
+    space
+    MagicButtonViewModel
+  BasicView -- "strong" --> MagicButtonViewModel
+```
+
+When the start button is tapped, the `TickerAsyncSequenceFactory` is created, the `makeAsyncSequence()` function executes and returns an `AsyncStream<Int>` to the `MagicButtonViewModel`.  Then the `TickerAsyncSequenceFactory` is deinitialized.  At this point, we have three objects in memory:  the SwiftUI view, the `MagicButtonViewModel`, `Ticker` and the `AsyncStream<Int>`:
+```mermaid
+flowchart LR
+    BasicView-- strong(viewModel) -->MagicButtonViewModel
+    MagicButtonViewModel-- strong -->AsyncStream
+    AsyncStream-- strong(ticker) -->Ticker
+    AsyncStream-. values .->MagicButtonViewModel
+    MagicButtonViewModel-- strong(subscription) -->Task
+    subgraph task
+    Task-- strong -->TickerAsyncSequenceFactory.makeAsyncSequence
+    subgraph stream
+    TickerAsyncSequenceFactory.makeAsyncSequence-- creates -->AsyncStream
+    Ticker-. values .->AsyncStream
+    end stream
+    end
+```
+
+```
+Start button tapped
+init TickerAsyncSequenceFactory
+makeAsyncSequence()
+init Ticker
+Ticker started
+Deinit TickerAsyncSequenceFactory
+number: 0
+number: 1
+number: 2
+number: 3
+number: 4
+number: 5
+number: 6
+number: 7
+number: 8
+number: 9
+number: 10
+number: 11
+number: 12
+```
+
+When the stop button is tapped, the subscription(Task) is cancelled, and the `Ticker` is stopped and deinitialized:
+```
+Stop button tapped
+cancelled task
+Ticker stopped
+Deinit Ticker
+```
+
 [Jacobs Tech Tavern](https://blog.jacobstechtavern.com/p/migrating-combine-to-asyncalgorithms)
 [AsyncAlgorithms](https://github.com/apple/swift-async-algorithms)
 [AsyncExtensions](https://github.com/sideeffect-io/AsyncExtensions)
@@ -151,9 +390,6 @@ This extension function does the following:
         1. set `finishedWithoutValue` to false
         2. call `continuation.resume()` with a `.success(value)`
 
-kjfdkasjfjlkasdjfjsadjj
-kljasldkfj
-lsdkjflj
 
 ## Converting closure based handling to use `AsyncStream`s
 If we currently have

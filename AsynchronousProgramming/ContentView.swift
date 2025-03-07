@@ -93,7 +93,8 @@ struct ContentView: View {
 //        ItemGeneratorView()
 //        UserGenerationView()
 //        StockView()
-        InfiniteNumberView()
+//        InfiniteNumberView()
+        BasicView()
     }
 }
 
