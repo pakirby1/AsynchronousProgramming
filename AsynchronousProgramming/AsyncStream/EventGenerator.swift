@@ -76,6 +76,16 @@ enum GeneratorState : CustomStringConvertible {
     }
 }
 
+enum EventSource<T> {
+    case initial(T)
+    case processing(Task<T, Never>)
+    case finished
+    
+    func generateEvents() {
+        
+    }
+}
+
 class Generator<T> {
     var workItem: WorkItem<T>? = nil
     

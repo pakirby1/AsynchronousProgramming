@@ -49,12 +49,27 @@ struct BasicView : View {
             try await Task.sleep(nanoseconds: 1_000_000_000)
         }
         
-        subscription = Task {
-            for await number in TickerAsyncSequenceFactory().makeAsyncSequence() {
-                try await present("⏰ \(number) ⏰")
-                print("number: \(number)")
+        func createSubscription() {
+            subscription = Task {
+                for await number in TickerAsyncSequenceFactory().makeAsyncSequence() {
+                    try await present("⏰ \(number) ⏰")
+                    print("number: \(number)")
+                }
             }
         }
+        
+        guard let sub = subscription else {
+            createSubscription()
+            return
+        }
+        
+        // Cancel the current subscription
+        stop()
+        
+        // create a new subscription
+        createSubscription()
+        
+        return
     }
     
     public func stop() {
