@@ -54,6 +54,7 @@ struct UserGenerationRowView : View {
         }
     }
 }
+
 @Observable
 @MainActor
 class UserGeneratorViewModel : @preconcurrency TaskCancellable {

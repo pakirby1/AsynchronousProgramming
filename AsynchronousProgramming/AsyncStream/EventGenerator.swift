@@ -21,6 +21,7 @@ struct EventGeneratorView: View {
         }
     }
 }
+
 @Observable
 @MainActor
 class EventGeneratorViewModel {

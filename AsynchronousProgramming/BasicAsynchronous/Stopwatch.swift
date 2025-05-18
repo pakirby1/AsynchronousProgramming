@@ -30,6 +30,7 @@ struct StopwatchView : View {
         }
     }
 }
+
 @Observable
 @MainActor
 class StopwatchViewModel {

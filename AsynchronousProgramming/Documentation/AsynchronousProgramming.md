@@ -52,9 +52,18 @@ struct BasicView : View {
 ## `MagicButtonViewModel`
 
 ```swift
-@MainActor class MagicButtonViewModel: ObservableObject {
-    @Published var output: String = "🙈"
+@Observable
+@MainActor class MagicButtonViewModel {
+    var output: String = "🙈"
     private var subscription: Task<(), Error>!
+    
+    init() {
+        print("init MagicButtonViewModel")
+    }
+    
+    deinit {
+        print("Deinit MagicButtonViewModel")
+    }
     
     public func start() {
         func present(_ result: String) async throws {
@@ -66,6 +75,7 @@ struct BasicView : View {
         subscription = Task {
             for await number in TickerAsyncSequenceFactory().makeAsyncSequence() {
                 try await present("⏰ \(number) ⏰")
+                print("number: \(number)")
             }
         }
     }
@@ -75,6 +85,7 @@ struct BasicView : View {
         
         sub.cancel()
         print("cancelled task")
+        subscription = nil
     }
 }
 ```
@@ -804,7 +815,7 @@ classDiagram
     SwiftUIView : -generateEvents() async
     SwiftUIView : +ViewModel viewModel
     ViewModel : +generateEvents() async
-    ViewModel : +@Published events
+    ViewModel : +events
     ViewModel : -eventGenerator EventGenerator
     EventGenerator : +lazy var stream AsyncStream
     EventGenerator : -continuation AsyncStream.Iterator
@@ -839,7 +850,7 @@ classDiagram
     SwiftUIView : -generateEvents() async
     SwiftUIView : +ViewModel viewModel
     ViewModel : +generateEvents() async
-    ViewModel : +@Published events
+    ViewModel : +events
     ViewModel : -eventGenerator EventGenerator
     EventGenerator : +lazy var stream AsyncStream
     EventGenerator : -continuation AsyncStream.Iterator
@@ -865,7 +876,7 @@ classDiagram
     
     StopwatchView : @StateObject viewModel StopwatchViewModel
     
-    StopwatchViewModel: @Published currentTime Date
+    StopwatchViewModel: currentTime Date
     StopwatchViewModel: generator = EventGenerator()
     StopwatchViewModel: +start() async
     StopwatchViewModel: +stop() async
@@ -918,19 +929,22 @@ from an async context.
 The view model then `await`s on the `generator.eventStream`, and when an event is published 
 on the `eventStream`, set the `currentTime` to the event.
 ```swift
+@Observable
 @MainActor
-class StopwatchViewModel: ObservableObject {
-    @Published var currentTime: Date = Date()
+class StopwatchViewModel {
+    var currentTime: Date = Date()
     private let generator = EventGenerator()
     
     func start() async {
+        await generator.start()
+        
         for await event in generator.eventStream {
             currentTime = event
         }
     }
     
     func stop() async {
-        
+        await generator.stop()
     }
 }
 ```
@@ -978,9 +992,10 @@ class EventGenerator {
 ```
 We need to update the view model to call the `start()` and `stop()` functions.
 ```swift
+@Observable
 @MainActor
-class StopwatchViewModel: ObservableObject {
-    @Published var currentTime: Date = Date()
+class StopwatchViewModel {
+    var currentTime: Date = Date()
     private let generator = EventGenerator()
     
     func start() async {
@@ -1049,17 +1064,20 @@ struct EventGeneratorView: View {
     }
 }
 
+@Observable
 @MainActor
-class EventGeneratorViewModel : ObservableObject {
-    @Published var currentUser: String = ""
+class EventGeneratorViewModel {
+    var currentUser: String = ""
     let generator: Generator<User>?
     let service: UserService?
     
     init() {
         self.service = UserService()
         self.generator = Generator<User>()
-        let workItem = WorkItem { return self.service?.getUsers() }
-        self.generator?.workItem = workItem
+        self.generator?.workItem = WorkItem<User> { [weak self] in
+            guard let self else { return [] }
+            return self.service?.getUsers() ?? []
+        }
     }
     
     func getUser() {
@@ -1202,7 +1220,7 @@ sequenceDiagram
     UserService->>WorkItem: [User]
     WorkItem->>Generator~User~: [User]
     Generator~User~->>ViewModel: AsyncStream<String>
-    ViewModel->>ViewModel: update @Published currentUser
+    ViewModel->>ViewModel: update currentUser
     end
     end
     ViewModel->>SwiftUIView: currentUser
@@ -1247,9 +1265,10 @@ flowchart LR
 Using `[weak self]` resolves the retain cycle.
 
 ```swift
+@Observable
 @MainActor
-class EventGeneratorViewModel : ObservableObject {
-    @Published var currentUser: String = ""
+class EventGeneratorViewModel {
+    var currentUser: String = ""
     let generator: Generator<User>?
     let service: UserService?
     
@@ -1363,12 +1382,12 @@ sequenceDiagram
     StockService->>Stream~T~: start()
     end
     Stream~T~->>StockViewModel: Stock?
-    StockViewModel->>StockViewModel: update @Published currentStock
+    StockViewModel->>StockViewModel: update currentStock
     StockViewModel->>StockView: 
     StockView->>StockDetailView: Stock?
     end
 ```
-Here, we see that we have a few objects that are annotated with the `@MainActor` attribute.  This attribute forces all functions to be executed on the main thread.  By default, SwiftUI views run on the main actor and so they implicitly have the `@MainActor` attribute.  The `StockViewModel` uses this attribute because the `@Published` variables are used to update the UI, and you should only ever update the UI on the main thread.
+Here, we see that we have a few objects that are annotated with the `@MainActor` attribute.  This attribute forces all functions to be executed on the main thread.  By default, SwiftUI views run on the main actor and so they implicitly have the `@MainActor` attribute.  The `StockViewModel` uses this attribute because the variables are used to update the UI, and you should only ever update the UI on the main thread.
 
 When the user taps the Start button, we want to start the stream.  To do so,
 we wrap the call to `viewModel.getStocks()` in a `Task`:
