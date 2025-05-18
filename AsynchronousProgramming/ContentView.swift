@@ -8,6 +8,27 @@
 import SwiftUI
 import CoreData
 
+struct ContentView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    
+    var body: some View {
+//        TimestampListView()
+//        AsyncView()
+//        CombineView()
+//        InfiniteStreamView()
+//        StopwatchView()
+//        EventGeneratorView()
+//        TaskView()
+//        TaskGroupView()
+//        TaskGroupViewWithReturn()
+//        ItemGeneratorView()
+//        UserGenerationView()
+//        StockView()
+//        InfiniteNumberView()
+        BasicView()
+    }
+}
+
 struct TimestampListView : View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
@@ -74,27 +95,6 @@ struct TimestampListView : View {
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
         }
-    }
-}
-
-struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-    
-    var body: some View {
-//        TimestampListView()
-//        AsyncView()
-//        CombineView()
-//        InfiniteStreamView()
-//        StopwatchView()
-//        EventGeneratorView()
-//        TaskView()
-//        TaskGroupView()
-//        TaskGroupViewWithReturn()
-//        ItemGeneratorView()
-//        UserGenerationView()
-//        StockView()
-//        InfiniteNumberView()
-        BasicView()
     }
 }
 
