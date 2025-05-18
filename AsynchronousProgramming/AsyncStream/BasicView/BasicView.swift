@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct BasicView : View {
-    @StateObject var viewModel = MagicButtonViewModel()
+    @State var viewModel = MagicButtonViewModel()
     
     var body: some View {
         Text("BasicView")
@@ -29,8 +29,9 @@ struct BasicView : View {
     }
 }
 
-@MainActor class MagicButtonViewModel: ObservableObject {
-    @Published var output: String = "🙈"
+@Observable
+@MainActor class MagicButtonViewModel {
+    var output: String = "🙈"
     private var subscription: Task<(), Error>!
     
     init() {
