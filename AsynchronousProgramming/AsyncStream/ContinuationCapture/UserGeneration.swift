@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct UserGenerationView : View {
-    @StateObject var viewModel: UserGeneratorViewModel = UserGeneratorViewModel()
+    @State var viewModel: UserGeneratorViewModel = UserGeneratorViewModel()
     let defaultUser: JSONPlaceholderUser = .init(id: -1, name: "Empty", username: "empty", email: "none", address: .init(street: "none", suite: "none", city: "none", zipcode: "none", geo: .init(lat: "nont", lng: "none")), phone: "none", website: "none", company: .init(name: "none", catchPhrase: "none", bs: "none"))
     
     var body: some View {
@@ -54,14 +54,14 @@ struct UserGenerationRowView : View {
         }
     }
 }
-
+@Observable
 @MainActor
-class UserGeneratorViewModel : ObservableObject, @preconcurrency TaskCancellable {
+class UserGeneratorViewModel : @preconcurrency TaskCancellable {
     var task: Task<(), Never>?
     
     let service: UserGeneratorService = UserGeneratorService()
-    @Published var currentUser: JSONPlaceholderUser?
-    @Published var users: [JSONPlaceholderUser] = []
+    var currentUser: JSONPlaceholderUser?
+    var users: [JSONPlaceholderUser] = []
     
     func start() {
         self.task = Task {

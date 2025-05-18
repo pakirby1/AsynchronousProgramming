@@ -2,7 +2,7 @@ import SwiftUI
 import Charts
 
 struct InfiniteNumberView: View {
-    @StateObject var viewModel = InfiniteNumberViewModel()
+    @State var viewModel = InfiniteNumberViewModel()
     
     var body: some View {
         VStack {
@@ -30,11 +30,11 @@ struct InfiniteNumberView: View {
         Spacer()
     }
 }
-
+@Observable
 @MainActor
-class InfiniteNumberViewModel : ObservableObject {
-    @Published var currentNumber: Int = -1
-    @Published var numberHistory: [Int] = []
+class InfiniteNumberViewModel {
+    var currentNumber: Int = -1
+    var numberHistory: [Int] = []
     
     let service = InfiniteNumberService()
 

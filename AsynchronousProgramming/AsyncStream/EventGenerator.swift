@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct EventGeneratorView: View {
-    @StateObject var viewModel = EventGeneratorViewModel()
+    @State var viewModel = EventGeneratorViewModel()
     
     var body: some View {
         VStack {
@@ -21,10 +21,10 @@ struct EventGeneratorView: View {
         }
     }
 }
-
+@Observable
 @MainActor
-class EventGeneratorViewModel : ObservableObject {
-    @Published var currentUser: String = ""
+class EventGeneratorViewModel {
+    var currentUser: String = ""
     let generator: Generator<User>?
     let service: UserService?
     

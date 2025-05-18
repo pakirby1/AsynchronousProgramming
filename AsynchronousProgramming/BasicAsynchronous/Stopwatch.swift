@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct StopwatchView : View {
-    @StateObject var viewModel = StopwatchViewModel()
+    @State var viewModel = StopwatchViewModel()
     
     var body: some View {
         VStack {
@@ -30,10 +30,10 @@ struct StopwatchView : View {
         }
     }
 }
-
+@Observable
 @MainActor
-class StopwatchViewModel: ObservableObject {
-    @Published var currentTime: Date = Date()
+class StopwatchViewModel {
+    var currentTime: Date = Date()
     private let generator = EventGenerator()
     
     func start() async {

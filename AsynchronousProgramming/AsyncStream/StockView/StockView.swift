@@ -2,7 +2,7 @@ import SwiftUI
 import Charts
 
 struct StockView: View {
-    @StateObject var viewModel = StockViewModel()
+    @State var viewModel = StockViewModel()
     
     var body: some View {
         VStack {
@@ -43,11 +43,11 @@ struct StockDetailView: View {
         Text("2007 Price: \(stock.price_2007)")
     }
 }
-
+@Observable
 @MainActor
-class StockViewModel : ObservableObject {
-    @Published var currentStock: Stock = Stock.defaultStock
-    @Published var stockHistory: [Stock?] = []
+class StockViewModel {
+    var currentStock: Stock = Stock.defaultStock
+    var stockHistory: [Stock?] = []
     
     let service = StockService()
 
