@@ -209,6 +209,7 @@ enum ItemGeneratorState<T> : CustomStringConvertible {
         case .cancelled: return "Cancelled"
         case .completed: return "Completed"
         case .idle: return "Idle"
+        case .none: return "None"
         default: return "Running..."
         }
     }
@@ -217,6 +218,7 @@ enum ItemGeneratorState<T> : CustomStringConvertible {
     case running(T)
     case completed
     case cancelled
+    case none
 }
 
 enum ItemGeneratorAction {
@@ -224,6 +226,7 @@ enum ItemGeneratorAction {
     case stop
     case finish
     case cancelled
+    case none
     
     var description: String {
         switch(self) {
@@ -231,18 +234,23 @@ enum ItemGeneratorAction {
         case .stop: return "Stop"
         case .finish: return "Finish"
         case .cancelled: return "Cancelled"
+        case .none: return "None"
         }
     }
 }
 
 class ItemGeneratorStateMachine {
-    var currentState: ItemGeneratorState<Int> = .idle
+    var currentState: ItemGeneratorState<Int> = .none
     
     func send(_ action: ItemGeneratorAction) {
         switch(action) {
         case .start:
-            guard case .idle = currentState else { return }
-            currentState = .running(-1)
+            switch currentState {
+            case .idle, .none:
+                currentState = .running(-1)
+            default:
+                return
+            }
         case .stop:
             guard case .running = currentState else { return }
             currentState = .idle
@@ -253,6 +261,8 @@ class ItemGeneratorStateMachine {
             guard case .running(let value) = currentState else { return }
             currentState = .cancelled
             print("Generator cancelled with value: \(value)")
+        case .none:
+            currentState = .none
         }
     }
 }

@@ -58,7 +58,7 @@ struct BasicView : View {
             }
         }
         
-        guard let sub = subscription else {
+        guard subscription != nil else {
             createSubscription()
             return
         }
